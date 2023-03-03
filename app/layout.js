@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <Link href="/register">
       <li className={styles.li}>Register</li>
       </Link>
-          <Link href="/pages/login">
+          <Link href="/login">
       <li className={styles.li}>Login</li>
       </Link>
       </ul>
