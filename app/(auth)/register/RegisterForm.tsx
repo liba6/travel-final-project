@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation';
 
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
 
-export default function RegisterForm (){
+export default function RegisterForm (props: {returnTo?: string | string[]}){
     const [username, setUsername]= useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState <{message:string}[]> ([]);
     const router = useRouter();
 
 
@@ -22,13 +23,23 @@ export default function RegisterForm (){
         });
         const data: RegisterResponseBody = await response.json();
 
-        if ('errors' in data){
+        if ('errors'in data){
+            setErrors(data.errors)
             return ;
         }
-console.log(data.user);
-    router.push('/') 
+
+        if (props.returnTo && 
+            !Array.isArray(props.returnTo) &&
+            /^\/[a-zA-Z0-9-?=/]*$/.test(props.returnTo)
+            )  {
+            router.push(props.returnTo);
+            return;
+        }
+    router.push(`/profile/${data.user.username}`) 
+
 
     }}>
+        {errors.map(error=> <div key ={`error - ${error.message}`}>Error:{error.message}</div>)}
         <label>
             username:
              <input 
