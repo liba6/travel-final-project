@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
           <Link href="/">
           <li className={styles.li}>Home</li>
           </Link>
-          <Link href="/pages/attraction">
+          <Link href="/pages/attractions">
       <li className={styles.li}>Find an Attraction</li>
       </Link>
         <Link href="/register">
@@ -26,6 +26,9 @@ export default function RootLayout({ children }) {
       </Link>
           <Link href="/login">
       <li className={styles.li}>Login</li>
+      </Link>
+          <Link href="/logout">
+      <li className={styles.li}>Logout</li>
       </Link>
       </ul>
       </nav>

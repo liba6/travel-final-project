@@ -34,8 +34,8 @@ export default function RegisterForm (props: {returnTo?: string | string[]}){
             router.push(props.returnTo);
             return;
         }
-    router.push(`/profile/${data.user.username}`) 
-
+        router.replace(`/favorites/${data.user.username}`);
+        router.refresh();
 
     }}>
         {errors.map(error=> <div key ={`error - ${error.message}`}>Error:{error.message}</div>)}

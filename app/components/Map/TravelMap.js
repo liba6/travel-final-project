@@ -1,4 +1,5 @@
 
+
 'use client'
 import {
   useCallback,
@@ -10,9 +11,11 @@ import {
   useJsApiLoader,
 } from '@react-google-maps/api';
 
+import styles from './page.module.scss';
+
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '700px',
+  height: '600px'
 };
 
 const center = {
@@ -40,19 +43,19 @@ export default function TravelMap() {
   }, [])
 
   return isLoaded ? (
+    <div className={styles.mapContainer}> 
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={14}
+        margin={[50, 50, 50, 50]}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
       </GoogleMap>
+      </div>
   ) : <></>
 }
-
-
-
 

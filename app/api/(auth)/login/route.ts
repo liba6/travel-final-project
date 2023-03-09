@@ -85,7 +85,5 @@ return NextResponse.json(
     headers: {'Set-Cookie': serializedCookie},
 
 },
-
 );
-
 }
