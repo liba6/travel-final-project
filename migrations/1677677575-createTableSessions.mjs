@@ -2,7 +2,7 @@ export async function up(sql) {
     await sql`
       CREATE TABLE sessions (
         id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        token varchar(110) NOT NULL UNIQUE,
+        token varchar(11q0) NOT NULL UNIQUE,
         expiry_timestamp timestamp NOT NULL DEFAULT NOW() + INTERVAL '24 hours',
         user_id integer REFERENCES users(id) ON DELETE CASCADE
       )

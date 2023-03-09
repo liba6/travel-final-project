@@ -47,12 +47,21 @@ export default function TravelMap() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={14}
+        zoom={8}
         margin={[50, 50, 50, 50]}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
+
+{/*         
+
+        const marker = new google.maps.Marker({
+        position: lat:42.4668, lng:-70.9495,
+        map:map
+}); */}
+
+
+        {/* /* Child components, such as markers, info windows, etc. */ } 
         <></>
       </GoogleMap>
       </div>
