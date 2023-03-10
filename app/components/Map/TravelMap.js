@@ -1,13 +1,12 @@
 
 
 'use client'
-import {
-  useCallback,
-  useState,
-} from 'react';
+
+import { useState } from 'react';
 
 import {
   GoogleMap,
+  Marker,
   useJsApiLoader,
 } from '@react-google-maps/api';
 
@@ -30,17 +29,17 @@ export default function TravelMap() {
 
   const [map, setMap] = useState(null)
 
-  const onLoad = useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+  // const onLoad = useCallback(function callback(map) {
+  //   // This is just an example of getting and using the map instance!!! don't just blindly copy!
+  //   const bounds = new window.google.maps.LatLngBounds(center);
+  //   map.fitBounds(bounds);
 
-    setMap(map)
-  }, [])
+  //   setMap(map)
+  // }, [])
 
-  const onUnmount = useCallback(function callback() {
-    setMap(null)
-  }, [])
+  // const onUnmount = useCallback(function callback() {
+  //   setMap(null)
+  // }, [])
 
   return isLoaded ? (
     <div className={styles.mapContainer}> 
@@ -48,22 +47,12 @@ export default function TravelMap() {
         mapContainerStyle={containerStyle}
         center={center}
         zoom={8}
-        margin={[50, 50, 50, 50]}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
+        // margin={[50, 50, 50, 50]}
+        // onLoad={onLoad}
+        // onUnmount={onUnmount}
       >
-
-{/*         
-
-        const marker = new google.maps.Marker({
-        position: lat:42.4668, lng:-70.9495,
-        map:map
-}); */}
-
-
-        {/* /* Child components, such as markers, info windows, etc. */ } 
-        <></>
-      </GoogleMap>
+       <Marker position={center} />
+          </GoogleMap>
       </div>
   ) : <></>
 }

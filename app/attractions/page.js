@@ -1,4 +1,4 @@
-import TravelMap from '../../components/Map/TravelMap';
+import TravelMap from '../components/Map/TravelMap';
 
 export default function Attraction() {
  return <div>

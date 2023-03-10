@@ -42,7 +42,7 @@ console.log(user)
           <Link href="/">
           <li className={styles.li}>Home</li>
           </Link>
-          <Link href="/pages/attractions">
+          <Link href="/attractions">
       <li className={styles.li}>Find an Attraction</li>
       </Link>
         <Link href="/register">
@@ -51,7 +51,7 @@ console.log(user)
           <Link href="/login">
       <li className={styles.li}>Login</li>
       </Link>
-      <   Link href="/pages/favorites">
+          <Link href="/favorites/{user.username}">
       <li className={styles.li}>{user && user.username + " "}Favorites</li>
       </Link>
           <Link href="/logout" prefetch={false}>
