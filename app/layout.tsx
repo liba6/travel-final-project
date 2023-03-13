@@ -43,7 +43,7 @@ console.log(user)
           <li className={styles.li}>Home</li>
           </Link>
           <Link href="/attractions">
-      <li className={styles.li}>Find an Attraction</li>
+      <li className={styles.li}>Attractions</li>
       </Link>
         <Link href="/register">
       <li className={styles.li}>Register</li>

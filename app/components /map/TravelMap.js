@@ -2,8 +2,6 @@
 
 'use client'
 
-import { useState } from 'react';
-
 import {
   GoogleMap,
   Marker,
@@ -14,20 +12,21 @@ import styles from './page.module.scss';
 
 const containerStyle = {
   width: '700px',
-  height: '600px'
+  height: '600px',
+  borderRadius: '10px',
 };
 
-const center = {
+const coordinates= {
   lat: 40.6690,
   lng: -73.9429
 };
-export default function TravelMap() {
+export default function TravelMap({ coords, places, setCoords, setBounds, setChildClicked, weatherData }) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey:process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
   })
 
-  const [map, setMap] = useState(null)
+  // const [map, setMap] = useState(null)
 
   // const onLoad = useCallback(function callback(map) {
   //   // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -45,13 +44,20 @@ export default function TravelMap() {
     <div className={styles.mapContainer}> 
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        center={coordinates}
+        defaultCenter={coordinates}
         zoom={8}
-        // margin={[50, 50, 50, 50]}
+        margin={[50, 50, 50, 50]}
+        options = {''}
+         onChange={(e) => {
+          setCoords({ lat: e.center.lat, lng: e.center.lng });
+          setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
+         }}
+         onChildClick={(child) => setChildClicked(child)}
         // onLoad={onLoad}
         // onUnmount={onUnmount}
       >
-       <Marker position={center} />
+       <Marker position={coordinates} />
           </GoogleMap>
       </div>
   ) : <></>
