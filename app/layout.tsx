@@ -59,6 +59,7 @@ console.log(user)
       </Link>
       </ul>
       </nav>
+
       {props.children}
       </body>
     </html>
