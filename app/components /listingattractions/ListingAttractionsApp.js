@@ -7,22 +7,27 @@ import {
 
 import PlacesAutocomplete from 'react-places-autocomplete';
 
-// import Autocomplete from "react-google-autocomplete";
 import {
   AppBar,
   Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
   Grid,
   Toolbar,
   Typography,
 } from '@material-ui/core';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PhoneIcon from '@material-ui/icons/Phone';
 import SearchIcon from '@material-ui/icons/Search';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-import TravelMap from '../map/TravelMap';
+import getPlacesData from '../../api/travelAPI/route';
 import styles from './page.module.scss';
 
 export default  function ListingAttractions() {
-// const [places, setPlaces] = useState ([]);
+const [places, setPlaces] = useState ([]);
 // const [apiData, setApiData] = useState('')
 const [coords, setCoords] = useState({ });
 // const [bounds, setBounds] = useState(null);
@@ -32,6 +37,9 @@ const [address, setAddress]= useState('');
 //   lng:null
 // })
 
+const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+const myToken = process.env.MAPBOX_API_KEY
+
 const handleSelect = value => {
   // const results =  geocodeByAddress(value);
   // const ll =  getLatLng(results[0]);
@@ -39,68 +47,50 @@ const handleSelect = value => {
   // console.log('ll', ll);
   setAddress(value)
   // setCoordinates(ll)
-  // Geocode.fromAddress("Eiffel Tower").then(
-  //   (response) => {
-  //     const { lat, lng } = response.results[0].geometry.location;
-  //     console.log(lat, lng);
-  //   },
-  //   (error) => {
-  //     console.error(error);
-  //   }
-  // );
 }
 
 // console.log(handleSelect('london'))
 
+// api call to get current user location as starting point
 useEffect(()=> {
  navigator.geolocation.getCurrentPosition(({coords:{latitude, longitude}})=> {
   setCoords({lat:latitude, lng:longitude})
  })
 }, []);
 
-// useEffect(() => {
-//   const timer = setTimeout(() => {
-//     fetch(
-//       `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${props.myKey}`,
-//     )
-//       .then((res) => res.json())
-//       .then((res) => res.features[1].geometry.coordinates)
-//       .then((res) => setApiData(res))
-//       .catch(() => console.log('Error'));
-//   }, 700);
-//   return () => clearTimeout(timer);
-// }, [address]);
+// api call to convert given city to its coordinates
 
-// need to comment back in - just trying to avoid wasting api calls
-    // useEffect (()=>{
-    //   getPlacesData()
-    //   .then ((data)=> {
-    //   console.log('datalocations', data);
-    //   setPlaces(data)
-    //   } )
+useEffect(() => {
+  const timer = setTimeout(() => {
+    fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${myToken}`,
+    )
+      .then((res) => res.json())
+      .then((res) => res.features[1].geometry.coordinates)
+      .then((res) => setCoords(res))
+      .catch(() => console.log('Error'));
+  }, 700);
+  return () => clearTimeout(timer);
+}, [address, myToken]);
 
-    // },[]);
+console.log('coords', coords)
+// api call to get places for any given location
+    useEffect (()=>{
+      getPlacesData()
+      .then ((data)=> {
+      console.log('datalocations', data);
+      setPlaces(data)
+      } )
+
+    },[]);
 
 
-const places = [
-{name: 'cool beer'},
-{name: 'chabad house'},
-{name: 'adventure climbing'}
-]
+// const places = [
+// {name: 'cool beer'},
+// {name: 'chabad house'},
+// {name: 'adventure climbing'}
+// ]
   
-// Geocode.setApiKey("NEXT_PUBLIC_GOOGLE_MAPS_API_KEY");
-// useEffect (()=> {
-// Geocode.fromAddress("eiffel tower").then(
-//   (response) => {
-//     const { lat, lng } = response.results[0].geometry.location;
-//     console.log('latandlng', lat, lng);
-//   },
-//   (error) => {
-//     console.error(error);
-//   }
-// );
-// })
-const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   return (
     <div >
@@ -183,9 +173,62 @@ const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
         </Box>
       </Toolbar>
     </AppBar>
-  
+<div>
+    <Grid container spacing={3} 
+     className={styles.list}
+    >
+            {places?.map((place, i) => (
+              <Grid  key={place.name} item xs={12}>
+    <Card elevation={6}key = {place.id}>
+      <CardMedia
+        className={styles.cardmedia}
+        image={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+        title={place.name}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5">{place.name}</Typography>
 
-          <Grid container spacing={3} >
+        <Box display="flex" justifyContent="space-between">
+          <Typography component="legend">Price</Typography>
+          <Typography gutterBottom variant="subtitle1">
+            {place.price_level}
+          </Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Typography component="legend">Ranking</Typography>
+          <Typography gutterBottom variant="subtitle1">
+            {place.ranking}
+          </Typography>
+        </Box>
+         
+        {place.address && (
+          <Typography gutterBottom variant="body2" color="textSecondary" 
+          // className={classes.subtitle}
+          >
+            <LocationOnIcon />{place.address}
+          </Typography>
+        )}
+        {place.phone && (
+          <Typography variant="body2" color="textSecondary" 
+          //className={classes.spacing}
+          >
+            <PhoneIcon /> {place.phone}
+          </Typography>
+        )}
+      </CardContent>
+      <CardActions>
+        <Button size="small" color="primary" onClick={() => window.open(place.web_url, '_blank')}>
+          Trip Advisor
+        </Button>
+        <Button size="small" color="primary" onClick={() => window.open(place.website, '_blank')}>
+          Website
+        </Button>
+      </CardActions>
+    </Card>
+        </Grid>
+    ))}
+
+          {/* <Grid container spacing={3} >
             {places?.map((place) => (
 
               <Grid item key={place.name} xs={12} md={8}>
@@ -198,9 +241,10 @@ const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
                   setCoords={setCoords}
                   // setBounds= {setBounds}
                   coords={coords}
-                />
+                /> */}
 
         {/* </> */}
-    
+ </Grid>   
+ </div>
 </div>
-  )}
+ )}

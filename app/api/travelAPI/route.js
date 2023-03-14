@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const URL = 'https://travel-advisor.p.rapidapi.com/attractions/list-by-latlng'
 
 const options = {
@@ -13,16 +15,16 @@ const options = {
   }
 };
 // Commenting out to avoid maxing out my api calls :()
-// export default async function getPlacesData () {
-//   try {
-//     const {data: {data} } = await axios.get(URL, options);
-//     return data;
+export default async function getPlacesData () {
+  try {
+    const {data: {data} } = await axios.get(URL, options);
+    return data;
 
-//   } 
-//   catch(error){
-//     console.log('error', error)
-//   }
-//   }
+  } 
+  catch(error){
+    console.log('error', error)
+  }
+  }
 
 
 // // const options = {
