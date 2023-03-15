@@ -15,6 +15,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  CssBaseline,
   Grid,
   Toolbar,
   Typography,
@@ -22,8 +23,11 @@ import {
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PhoneIcon from '@material-ui/icons/Phone';
 import SearchIcon from '@material-ui/icons/Search';
+import FavoriteBorderOutlinedIcon
+  from '@mui/icons-material/FavoriteBorderOutlined';
 
-import getPlacesData from '../../api/travelAPI/route';
+import getPlacesData from '../../../util/places';
+import TravelMap from '../map/TravelMap';
 import styles from './page.module.scss';
 
 export default  function ListingAttractions() {
@@ -32,57 +36,58 @@ const [places, setPlaces] = useState ([]);
 const [coords, setCoords] = useState({ });
 // const [bounds, setBounds] = useState(null);
 const [address, setAddress]= useState('');
+const [selection, setSelection]= useState('');
+
 // const [coordinates, setCoordinates] = useState({
 //   lat:null,
 //   lng:null
 // })
 
 const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-const myToken = process.env.MAPBOX_API_KEY
+const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
 
 const handleSelect = value => {
   // const results =  geocodeByAddress(value);
   // const ll =  getLatLng(results[0]);
   // console.log('results', results)
   // console.log('ll', ll);
+  setSelection(value)
   setAddress(value)
   // setCoordinates(ll)
 }
 
-// console.log(handleSelect('london'))
 
 // api call to get current user location as starting point
 useEffect(()=> {
  navigator.geolocation.getCurrentPosition(({coords:{latitude, longitude}})=> {
-  setCoords({lat:latitude, lng:longitude})
+  setCoords([longitude,latitude])
  })
 }, []);
 
 // api call to convert given city to its coordinates
-
 useEffect(() => {
-  const timer = setTimeout(() => {
     fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${myToken}`,
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${selection}.json?access_token=${myToken}`,
     )
       .then((res) => res.json())
       .then((res) => res.features[1].geometry.coordinates)
-      .then((res) => setCoords(res))
+      .then((res) => {console.log(res);setCoords(res)})
       .catch(() => console.log('Error'));
-  }, 700);
-  return () => clearTimeout(timer);
-}, [address, myToken]);
+  
+}, [selection, myToken]);
 
-console.log('coords', coords)
+// console.log('coordslatlng', coords[0], coords[1])
 // api call to get places for any given location
     useEffect (()=>{
-      getPlacesData()
+      getPlacesData(coords)
       .then ((data)=> {
-      console.log('datalocations', data);
-      setPlaces(data)
+      // console.log('datalocations', data);
+          setPlaces(data)
       } )
 
-    },[]);
+    },[
+      coords
+    ]);
 
 
 // const places = [
@@ -94,18 +99,10 @@ console.log('coords', coords)
 
   return (
     <div >
-
+      <CssBaseline/>
             <script src={`https://maps.googleapis.com/maps/api/js?key=${myKey}&libraries=places`}/>
 
-    <p>lat:
-      {/* {coordinates.lat} */}
-      </p>
-    <p> lng:
-      {/* long:{coordinates.lng} */}
-      </p>
-
-      
-        <AppBar position="static" className={styles.appbar}>
+            <AppBar position="static" className={styles.appbar}>
       <Toolbar 
        className={styles.toolbar}
       >
@@ -169,82 +166,68 @@ console.log('coords', coords)
           </div>
         )}
       </PlacesAutocomplete>
-      
-        </Box>
+              </Box>
       </Toolbar>
     </AppBar>
 <div>
+
     <Grid container spacing={3} 
      className={styles.list}
     >
-            {places?.map((place, i) => (
-              <Grid  key={place.name} item xs={12}>
-    <Card elevation={6}key = {place.id}>
-      <CardMedia
+        {places?.map((place, i) => (
+        <Grid  key={place.name} item xs={12} md={4}>
+         <Card elevation={6}key = {place.id}>
+           <CardMedia
         className={styles.cardmedia}
         image={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
         title={place.name}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5">{place.name}</Typography>
-
-        <Box display="flex" justifyContent="space-between">
-          <Typography component="legend">Price</Typography>
-          <Typography gutterBottom variant="subtitle1">
-            {place.price_level}
-          </Typography>
-        </Box>
-        <Box display="flex" justifyContent="space-between">
-          <Typography component="legend">Ranking</Typography>
-          <Typography gutterBottom variant="subtitle1">
-            {place.ranking}
-          </Typography>
-        </Box>
-         
-        {place.address && (
-          <Typography gutterBottom variant="body2" color="textSecondary" 
-          // className={classes.subtitle}
+           />
+          <CardContent>
+            <Box display= "flex" justifyContent="space-between">
+           <Typography gutterBottom variant="h5">{place.name}</Typography>
+          <FavoriteBorderOutlinedIcon/>
+          </Box>
+          <Box display="flex" justifyContent="space-between">
+          <Typography variant="subtitle1">{place.price_level}</Typography>
+          
+         </Box>
+                
+        {place?.address && (
+          <Typography gutterBottom variant="subtitle2" color="textSecondary" 
+           className={styles.subtitle}
           >
             <LocationOnIcon />{place.address}
           </Typography>
         )}
-        {place.phone && (
-          <Typography variant="body2" color="textSecondary" 
-          //className={classes.spacing}
+        {place?.phone && (
+          <Typography gutterBottom variant = "subtitle2" color="textSecondary" 
+          className={styles.spacing}
           >
             <PhoneIcon /> {place.phone}
           </Typography>
         )}
       </CardContent>
-      <CardActions>
+      <CardActions className = {styles.cardActions}>
         <Button size="small" color="primary" onClick={() => window.open(place.web_url, '_blank')}>
           Trip Advisor
         </Button>
         <Button size="small" color="primary" onClick={() => window.open(place.website, '_blank')}>
-          Website
+          {place.name} Website
         </Button>
       </CardActions>
     </Card>
         </Grid>
     ))}
-
-          {/* <Grid container spacing={3} >
-            {places?.map((place) => (
-
-              <Grid item key={place.name} xs={12} md={8}>
-                {place.name}
-              <FavoriteBorderIcon />
-                 </Grid>
-            ))}
-              </Grid>
+<Grid item xs={12} md={8} className = {styles.travelmap}>
              <TravelMap
-                  setCoords={setCoords}
+                  // setCoords={setCoords}
                   // setBounds= {setBounds}
                   coords={coords}
-                /> */}
+                  places = {places}
+                /> 
 
-        {/* </> */}
- </Grid>   
+</Grid>   
+</Grid>
  </div>
 </div>
  )}

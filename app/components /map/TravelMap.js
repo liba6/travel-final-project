@@ -17,16 +17,15 @@ const containerStyle = {
   borderRadius: '10px',
 };
 
-// const coordinates= {
-//   lat: 40.6690,
-//   lng: -73.9429
-// };
 
-export default function TravelMap({ coords, setCoords, 
-   //setBounds
-   }) {
-    const isMobile = useMediaQuery('(min-width:600px')
+export default function TravelMap({coords, places}) {
+    const matches = useMediaQuery('(min-width:600px')
 
+
+const coordinates= {
+  lat: coords[1],
+  lng: coords[0]
+};
 
     const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -34,14 +33,14 @@ export default function TravelMap({ coords, setCoords,
      libraries: ['places'],
   })
 
-
+console.log('mapcoords', coords)
 
   return isLoaded ? (
     <div className={styles.mapContainer}> 
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={coords}
-        defaultCenter={coords}
+        center={coordinates}
+        defaultCenter={coordinates}
         zoom={12}
         margin={[50, 50, 50, 50]}
         options = {''}
@@ -54,15 +53,38 @@ export default function TravelMap({ coords, setCoords,
          onLoad={map => {
           const bounds = new window.google.maps.LatLngBounds();
           map.fitBounds(bounds);
-          console.log('coords', coords)
-          console.log('bounds', bounds)
+          // console.log('coords', coords)
+          // console.log('bounds', bounds)
 
         }}
         //  onChildClick={(child) => setChildClicked(child)}
         // onLoad={onLoad}
         // onUnmount={onUnmount}
       >
-       <Marker position={coords} />
+        {/* {places?.map((place,i)=> (
+          <div className= {styles.markerContainer}
+          lat = {Number(place.latitude)}
+          lng = {Number(place.longitude)}
+          key= {i.place}
+          >
+            {
+            !matches ? (
+              <LocationOnOutlinedIcon color="primary" fontSize="large"/>
+            ) : (
+              <Paper elevation={3} className={styles.paper}>
+                <Typography variant="subtitle2" gutterBottom >
+                  {place.name}
+                  </Typography>
+                  <img className ={styles.pointer}
+                  alt = {place.name}
+                  src={place.photo? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Attractions-Placeholder-001.jpg'}
+                  />
+              </Paper>
+            )
+}
+          </div>
+        ))} */}
+       <Marker position={coordinates} />
           </GoogleMap>
       </div>
   ) : <></>
