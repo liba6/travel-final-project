@@ -71,7 +71,7 @@ useEffect(() => {
     )
       .then((res) => res.json())
       .then((res) => res.features[1].geometry.coordinates)
-      .then((res) => {console.log(res);setCoords(res)})
+      .then((res) => {setCoords(res)})
       .catch(() => console.log('Error'));
   
 }, [selection, myToken]);
@@ -88,14 +88,6 @@ useEffect(() => {
     },[
       coords
     ]);
-
-
-// const places = [
-// {name: 'cool beer'},
-// {name: 'chabad house'},
-// {name: 'adventure climbing'}
-// ]
-  
 
   return (
     <div >
@@ -122,22 +114,16 @@ useEffect(() => {
         onSelect={handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            
+          <div className ={styles.searchArea}> 
+            <div className={styles.searchIcon}>
              <SearchIcon />
-             {/* </div>
-              // input = {value}
-              
-              />
-              
-            </div> */}
+             </div>
              <input
               {...getInputProps({
                 placeholder: 'Search A City',
                 className: 'location-search-input',
               })}
-              //         onChange ={(event)=>setCity(event.currentTarget.value)}
-              // className={styles.root } 
+              className = {styles.input}
             />
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
@@ -147,8 +133,8 @@ useEffect(() => {
                   : 'suggestion-item';
                 // inline style for demonstration purpose
                 const style = suggestion.active
-                  ? { backgroundColor: 'tomato', cursor: 'pointer' }
-                  : { backgroundColor: 'turquoise', cursor: 'pointer' };
+                  ? { backgroundColor: '#6b6454', cursor: 'pointer' }
+                  : { backgroundColor: '#9cb1d2', cursor: 'pointer' };
                 return (
                   <div
                   key={suggestions.description}
@@ -174,9 +160,10 @@ useEffect(() => {
     <Grid container spacing={3} 
      className={styles.list}
     >
+        <Grid item xs={12} md={5}>
         {places?.map((place, i) => (
-        <Grid  key={place.name} item xs={12} md={4}>
-         <Card elevation={6}key = {place.id}>
+
+         <Card elevation={6} key ={place.id} className={styles.card}>
            <CardMedia
         className={styles.cardmedia}
         image={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
@@ -184,8 +171,11 @@ useEffect(() => {
            />
           <CardContent>
             <Box display= "flex" justifyContent="space-between">
+          
            <Typography gutterBottom variant="h5">{place.name}</Typography>
-          <FavoriteBorderOutlinedIcon/>
+           {/* <button className={styles.favorite}> */}
+          <FavoriteBorderOutlinedIcon color="error" />
+          {/* </button> */}
           </Box>
           <Box display="flex" justifyContent="space-between">
           <Typography variant="subtitle1">{place.price_level}</Typography>
@@ -216,9 +206,10 @@ useEffect(() => {
         </Button>
       </CardActions>
     </Card>
-        </Grid>
     ))}
-<Grid item xs={12} md={8} className = {styles.travelmap}>
+            </Grid>
+
+<Grid item xs={12} md={7} className = {styles.travelmap}>
              <TravelMap
                   // setCoords={setCoords}
                   // setBounds= {setBounds}
@@ -228,6 +219,6 @@ useEffect(() => {
 
 </Grid>   
 </Grid>
- </div>
+</div>
 </div>
  )}

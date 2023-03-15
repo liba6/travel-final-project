@@ -12,9 +12,10 @@ import {
 import styles from './page.module.scss';
 
 const containerStyle = {
-  width: '700px',
-  height: '600px',
+  width: '100%',
+  height: '100%',
   borderRadius: '10px',
+
 };
 
 
@@ -33,7 +34,6 @@ const coordinates= {
      libraries: ['places'],
   })
 
-console.log('mapcoords', coords)
 
   return isLoaded ? (
     <div className={styles.mapContainer}> 
@@ -50,13 +50,13 @@ console.log('mapcoords', coords)
         //   setCoords({ latitude: e.latitude, longitude: e.longitude });
           // setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
         //  }}
-         onLoad={map => {
-          const bounds = new window.google.maps.LatLngBounds();
-          map.fitBounds(bounds);
-          // console.log('coords', coords)
-          // console.log('bounds', bounds)
+        //  onLoad={map => {
+        //   const bounds = new window.google.maps.LatLngBounds();
+        //   map.fitBounds(bounds);
+        //   // console.log('coords', coords)
+        //   // console.log('bounds', bounds)
 
-        }}
+        // }}
         //  onChildClick={(child) => setChildClicked(child)}
         // onLoad={onLoad}
         // onUnmount={onUnmount}

@@ -25,69 +25,31 @@
             display: block;
           }
         
-        
-        .search {
-          //position: relative;
-          border-radius: 10px;
-          // background-color: #c7d3e5;
-          display: flex;
-          margin-right: 150px;
-          // border: white solid 5px;
-        
-        //   & :hover { 
-        //   background-color: white, 0.25;
-        //   margin-right: 150px;
-        //   margin-left: 0;
-        //   width: '100%';
-        //   // [theme.breakpoints.up('sm')]: { marginLeft: theme.spacing(3), width: 'auto' },
-        // }
-        }
-        .searchIcon {
-          padding: 20px;
-           height: 100%;
-           //position: absolute;
-           pointer-events: none;
-           display: flex;
-           align-items: center;
-           justify-content: center,
-        }
-        
-        // .inputRoot: {
-        //   color: 'inherit',
-        // }
-        .inputInput{
-          padding: 1, 1, 1, 0;
-          padding-left: calc(1em + 4px);
-          // transition: transitions.create(width), width 100%;
           
-          // [theme.breakpoints.up('md')]: { width: '20ch' },
-        }
         .toolbar {
           display: flex;
           justify-content: space-between;
           background-color: #9cb1d2;
         }
-        
-        .root {
-          color: white;
-          font-size: 20px;
-        
-        }
+      
 
         .cardmedia {
           height: 350px;
         }
 
         .list {
-width: 100%;
+          width: 100%;
+          margin: 15px;
           // height: 75vh;
           // overflow: auto;
           }
 
           .travelmap {
+            width: 100%;
             display:flex;
             justify-content: center;
             align-items:center;
+            
           }
         
 .subtitle {
@@ -113,4 +75,35 @@ width: 100%;
   margin: 8px;
   min-width: 120px;
   margin-bottom: 30px;
+}
+
+.searchIcon {
+  padding: 20px;
+   height: 100%;
+   //position: absolute;
+   pointer-events: none;
+   display: flex;
+   align-items: center;
+   justify-content: center,
+}
+.input {
+  padding: 6px;
+  height: 40px;
+  width: 150px; 
+  border-radius: 10px;
+margin-top: 14px;  
+position: relative;
+
+}
+.searchArea {
+  display: flex;  
+}
+
+.card {
+  margin-top:10px;
+  margin-bottom: 15px;
+}
+
+.heart {
+  background-color: tomato;
 }
