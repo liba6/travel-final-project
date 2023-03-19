@@ -1,20 +1,10 @@
 import crypto from 'node:crypto';
-
 import bcrypt from 'bcrypt';
-import {
-  NextRequest,
-  NextResponse,
-} from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-
 import { createSession } from '../../../../database/sessions';
-import {
-  createUser,
-  getUserByUsername,
-} from '../../../../database/users';
-import {
-  createSerializedRegisterSessionTokenCookie,
-} from '../../../../util/cookies';
+import { createUser, getUserByUsername } from '../../../../database/users';
+import { createSerializedRegisterSessionTokenCookie } from '../../../../util/cookies';
 
 // import { createCsrfSecret } from '../../../../util/csrf';
 
@@ -85,9 +75,11 @@ export async function POST(
   const token = crypto.randomBytes(80).toString('base64');
 
   // - create the session
-  const session = await createSession(token, newUser.id, 
+  const session = await createSession(
+    token,
+    newUser.id,
     // csrfSecret
-    );
+  );
 
   if (!session) {
     return NextResponse.json(

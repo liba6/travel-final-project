@@ -1,33 +1,34 @@
-import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import { createFavorite, Favorite } from '../../../database/favorites';
 
-import {
-  getUserBySessionToken,
-  User,
-} from '../../../database/users';
-
-export type ProfileResponseBodyGet =
+const favoritesSchema = z.object({
+  id: z.string(),
+  attraction: z.string(),
+  address: z.string(),
+  website: z.string(),
+  phone: z.string(),
+  user_id: z.number(),
+});
+export type FavoriteResponseBodyPost =
+  | { error: string }
   | {
-      error: string;
-    }
-  | {
-      user: User;
+      favorites: Favorite;
     };
 
-export async function GET(): Promise<NextResponse<ProfileResponseBodyGet>> {
-  // this is a protected Route Handler
-  // 1. get the session token from the cookie
-  const cookieStore = cookies();
-  const token = cookieStore.get('sessionToken');
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<FavoriteResponseBodyPost>> {
+  const body = await request.json();
+  const result = favoritesSchema.safeParse(body);
+  console.log('bodyinapiroute', result);
 
-  // 2. validate that session
-  // 3. get the user profile matching the session
-  const user = token && (await getUserBySessionToken(token.value));
-
-  if (!user) {
-    return NextResponse.json({ error: 'user not found' });
-  }
-  // 4. return the user profile
-
-  return NextResponse.json({ user: user });
+  const newFavorite = await createFavorite(
+    result.data.id,
+    result.data.attraction,
+    result.data.address,
+    result.data.website,
+    result.data.phone,
+    result.data.user_id,
+  );
 }

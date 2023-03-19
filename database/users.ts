@@ -1,20 +1,17 @@
 import { cache } from 'react';
-
 import { sql } from './connect';
 
 export type User = {
-    id: number;
-    username: string;
+  id: number;
+  username: string;
 };
 
 type UserWithPasswordHash = User & {
   passwordHash: string;
 };
 
-
 export const getUserBySessionToken = cache(async (token: string) => {
-  const [user] = await sql<
-    { id: number; username: string}[]>`
+  const [user] = await sql<{ id: number; username: string }[]>`
     SELECT
       users.id,
       users.username
@@ -28,7 +25,8 @@ export const getUserBySessionToken = cache(async (token: string) => {
       )
   `;
   return user;
-});export const getUserByUsernameWithPasswordHash = cache(
+});
+export const getUserByUsernameWithPasswordHash = cache(
   async (username: string) => {
     const [user] = await sql<UserWithPasswordHash[]>`
     SELECT
@@ -42,30 +40,30 @@ export const getUserBySessionToken = cache(async (token: string) => {
   },
 );
 
-export const getUserByUsername=cache(async(username: string)=> {
-        const [user] = await sql<{id:number; username:string}[]>`
+export const getUserByUsername = cache(async (username: string) => {
+  const [user] = await sql<{ id: number; username: string }[]>`
           SELECT
-            id, 
+            id,
             username
           FROM
             users
           WHERE
             username = ${username}
         `;
-        return user;
-  });
+  return user;
+});
 
 export const createUser = cache(
-  async(username:string, passwordHash:string)=>{
-      const [user] = await sql<{ id:number; username:string }[]>`
+  async (username: string, passwordHash: string) => {
+    const [user] = await sql<{ id: number; username: string }[]>`
         INSERT INTO users
           (username, password_hash)
         VALUES
           (${username}, ${passwordHash})
-        RETURNING 
+        RETURNING
         id,
         username
       `;
-      return user;
-},
+    return user;
+  },
 );

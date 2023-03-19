@@ -3,14 +3,14 @@ const nextConfig = {
   experimental: {
     appDir: true,
     typedRoutes: true,
-    serverComponentsExternalPackages:['bcrypt'],
+    serverComponentsExternalPackages: ['bcrypt'],
   },
   eslint: {
-    ignoreDuringBuilds:true,
+    ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
 };
 
-module.exports = nextConfig
+module.exports = nextConfig;

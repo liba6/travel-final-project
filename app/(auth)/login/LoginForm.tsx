@@ -1,10 +1,10 @@
 'use client';
-import { useState } from 'react';
-
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
+import { useState } from 'react';
 import { getSafeReturnToPath } from '../../../util/validation';
 import { LoginResponseBodyPost } from '../../api/(auth)/login/route';
+import styles from './page.module.scss';
 
 export default function LoginForm(props: { returnTo?: string | string[] }) {
   const [username, setUsername] = useState('');
@@ -43,21 +43,35 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
       {errors.map((error) => (
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
-      <label>
-        username:
-        <input
-          value={username}
-          onChange={(event) => setUsername(event.currentTarget.value)}
-        />
-      </label>
-      <label>
-        password:
-        <input
-          value={password}
-          onChange={(event) => setPassword(event.currentTarget.value)}
-        />
-      </label>
-      <button>Login</button>
+      <div className={styles.body}>
+        <div className={styles.container}>
+          <h1 className={styles.h1}>Login</h1>
+
+          <label>
+            Username:
+            <input
+              value={username}
+              className={styles.input}
+              onChange={(event) => setUsername(event.currentTarget.value)}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              value={password}
+              onChange={(event) => setPassword(event.currentTarget.value)}
+              className={styles.input}
+            />
+          </label>
+          <div className={styles.buttons}>
+            <button className={styles.button}>Login</button>
+
+            <Link href="/register">
+              <button className={styles.button}>Need to Register?</button>
+            </Link>
+          </div>
+        </div>
+      </div>
     </form>
   );
 }
