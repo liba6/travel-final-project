@@ -12,7 +12,6 @@ import {
   Grid,
   Toolbar,
   Typography,
-  useMediaQuery,
 } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -25,7 +24,7 @@ import getPlacesData from '../../../util/places';
 import TravelMap from '../map/TravelMap';
 import styles from './page.module.scss';
 
-export default function ListingAttractions() {
+export default function ListingAttractions(props) {
   const [places, setPlaces] = useState([]);
   // const [apiData, setApiData] = useState('')
   const [coords, setCoords] = useState({});
@@ -33,11 +32,7 @@ export default function ListingAttractions() {
   const [address, setAddress] = useState('');
   const [selection, setSelection] = useState('');
   const [isLiked, setIsLiked] = useState(false);
-
-  // const [coordinates, setCoordinates] = useState({
-  //   lat:null,
-  //   lng:null
-  // })
+  const [error, setError] = useState('');
 
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -51,7 +46,6 @@ export default function ListingAttractions() {
     setAddress(value);
     // setCoordinates(ll)
   };
-  const matches = useMediaQuery('(min-width:600px)');
 
   // api call to get current user location as starting point
   useEffect(() => {
@@ -153,7 +147,7 @@ export default function ListingAttractions() {
       <div>
         <Grid container spacing={3} className={styles.list}>
           {places?.map((place, i) => (
-            <Grid key={`place-${place.id}`} xs={12} md={5}>
+            <Grid key={`place-${place.id}`} item xs={12} md={6}>
               <Card elevation={6} className={styles.card}>
                 <CardMedia
                   className={styles.cardmedia}
@@ -169,44 +163,47 @@ export default function ListingAttractions() {
                     <Typography gutterBottom variant="h5">
                       {place.name}
                     </Typography>
-                    <button
-                      className={styles.favorite}
-                      onClick={async () => {
-                        setIsLiked(!isLiked);
+                    {!props.user ? undefined : (
+                      <button
+                        className={styles.favorite}
+                        onClick={async () => {
+                          setIsLiked(!isLiked);
 
-                        !isLiked ? (
-                          alert(
-                            `Hooray! You have successfully added ${place.name} to your favorites!`,
-                          )
+                          const response = await fetch('/api/favorites', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                              attraction: place.name,
+                              address: place.address || null,
+                              website: place.website || null,
+                              phone: place.phone || null,
+                              userId: props.user.id,
+                            }),
+                          });
+
+                          const data = await response.json();
+
+                          if (data.error) {
+                            setError(data.error);
+                            return error;
+                          }
+                          console.log('data', data);
+
+                          !isLiked &&
+                            alert(
+                              `Hooray! You have successfully added ${place.name} to your favorites!`,
+                            );
+                        }}
+                      >
+                        {isLiked ? (
+                          <FavoriteIcon color="error" />
                         ) : (
-                          <></>
-                        );
-
-                        const response = await fetch('/api/favorites', {
-                          method: 'POST',
-                          headers: {
-                            'Content-Type': 'application/json',
-                          },
-                          body: JSON.stringify({
-                            attraction: place.name,
-                            address: place.address,
-                            website: place.website,
-                            phone: place.phone,
-                            // user_id:,
-                          }),
-                        });
-
-                        const data = await response.json();
-
-                        console.log('data', data);
-                      }}
-                    >
-                      {isLiked ? (
-                        <FavoriteIcon color="error" />
-                      ) : (
-                        <FavoriteBorderOutlinedIcon />
-                      )}
-                    </button>
+                          <FavoriteBorderOutlinedIcon />
+                        )}
+                      </button>
+                    )}
                   </Box>
                   <Box display="flex" justifyContent="space-between">
                     <Typography variant="subtitle1">

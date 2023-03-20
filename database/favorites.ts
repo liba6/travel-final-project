@@ -4,36 +4,27 @@ import { sql } from './connect';
 export type Favorite = {
   id: number;
   attraction: string;
-  address: string;
-  website: string;
-  phone: string;
+  address: string | null;
+  website: string | null;
+  phone: string | null;
   userId: number;
 };
 
 export const createFavorite = cache(
   async (
     attraction: string,
-    address: string,
-    website: string,
-    phone: string,
+    address: string | null,
+    website: string | null,
+    phone: string | null,
     userId: number,
   ) => {
-    const [favorite] = await sql<
-      {
-        id: number;
-        attraction: string;
-        address: string;
-        website: string;
-        phone: string;
-        // user_id: number;
-      }[]
-    >`
+    const [favorite] = await sql<Favorite[]>`
     INSERT INTO favorites
      (attraction,address,website,phone,user_id)
     VALUES
      (${attraction}, ${address}, ${website}, ${phone}, ${userId})
      RETURNING
-     id,
+      id,
       attraction,
       address,
       website,
@@ -44,3 +35,13 @@ export const createFavorite = cache(
     return favorite;
   },
 );
+
+export const getFavoritesByUserId = cache(async (userId: number) => {
+  const favorites = await sql<Favorite[]>`
+    SELECT * FROM favorites
+    WHERE
+    user_id = ${userId}
+  `;
+
+  return favorites;
+});

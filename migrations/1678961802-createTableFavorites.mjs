@@ -6,7 +6,7 @@ export async function up(sql) {
       address varchar(200),
       website varchar(500),
       phone varchar(20),
-      user_id integer REFERENCES users(id)
+      user_id integer REFERENCES users(id) NOT NULL
     )
   `;
 }

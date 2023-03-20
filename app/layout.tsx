@@ -1,7 +1,7 @@
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { cookies } from 'next/headers';
+import Image from 'next/image';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { redirect } from 'next/navigation';
 import { getUserBySessionToken } from '../database/users';
 // import './globals.css';
 import styles from './layout.module.scss';
@@ -30,6 +30,9 @@ export default async function RootLayout(props: Props) {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
+  if (!user) {
+    redirect(`/login`);
+  }
   // if user is not undefined, the person is logged in
   // if user is undefined, the person is logged out
   console.log(user);
@@ -38,10 +41,16 @@ export default async function RootLayout(props: Props) {
       <head />
       <body className={styles.body}>
         <nav>
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="globe with logo"
+              width="250"
+              height="250"
+              className={styles.logo}
+            />
+          </Link>
           <ul className={styles.nav}>
-            <Link href="/">
-              <li className={styles.li}>Home</li>
-            </Link>
             <Link href="/attractions">
               <li className={styles.li}>Attractions</li>
             </Link>
@@ -51,7 +60,7 @@ export default async function RootLayout(props: Props) {
             <Link href="/login">
               <li className={styles.li}>Login</li>
             </Link>
-            <Link href="/favorites/{user.username}">
+            <Link href={`/favorites/${user.username}`}>
               <li className={styles.li}>
                 {user && user.username + ' '}Favorites
                 {/* <FavoriteIcon color="error" /> */}

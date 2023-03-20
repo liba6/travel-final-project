@@ -3,7 +3,9 @@ import styles from './page.module.scss';
 
 export default function AddRestaurants() {
   return (
-    <div>
+    <div
+    // className={styles.globe}
+    >
       <Image
         className={styles.img}
         src="/newglobe.tiff"

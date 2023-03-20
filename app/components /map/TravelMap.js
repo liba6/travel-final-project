@@ -51,34 +51,35 @@ export default function TravelMap({ coords, places }) {
         // onLoad={onLoad}
         // onUnmount={onUnmount}
       >
-        {/* {places?.map((place, i) => (
-          <div
+        {places?.map((place) => (
+          // <div
+          //   className={styles.markerContainer}
+          //   // lat = {Number(coords[1])}
+          //   // lng = {Number(coords[0])}
+          //   key={place.id}
+          <div key={`place-${place.id}`}>
             className={styles.markerContainer}
-            // lat = {Number(coords[1])}
-            // lng = {Number(coords[0])}
-            key={i.place}
-          >
-            {!matches ? (
+            {/* {matches ? (
               <LocationOnOutlinedIcon color="primary" fontSize="large" />
-            ) : (
-              <Paper elevation={3} className={styles.paper}>
-                <Typography variant="subtitle2" gutterBottom>
-                  {place.name}
-                </Typography>
-                <img
-                  className={styles.pointer}
-                  alt={place.name}
-                  src={
-                    place.photo
-                      ? place.photo.images.large.url
-                      : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Attractions-Placeholder-001.jpg'
-                  }
-                />
-              </Paper>
-            )}
-          </div> */}
-        {/* ))} */}
-        <Marker position={coordinates} />
+            ) : ( */}
+            <Paper elevation={3} className={styles.paper}>
+              <Typography variant="subtitle2" gutterBottom>
+                {place.name}
+              </Typography>
+              <img
+                className={styles.pointer}
+                alt={place.name}
+                src={
+                  place.photo
+                    ? place.photo.images.large.url
+                    : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Attractions-Placeholder-001.jpg'
+                }
+              />
+            </Paper>
+            {/* )} */}
+          </div>
+        ))}
+        <Marker position={{ coordinates }} />
       </GoogleMap>
     </div>
   ) : (
