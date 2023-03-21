@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { getFavoritesByUserId } from '../../database/favorites';
 import { getUserBySessionToken } from '../../database/users';
 import ListingAttractionsApp from '../components /listingattractions/ListingAttractionsApp';
 
@@ -12,12 +13,13 @@ export default async function Attractions() {
   const user = !sessionToken?.value
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
-
+  const favorites = getFavoritesByUserId(user.id);
+  console.log('faves', favorites);
   return (
     <div>
       {/* <Header /> */}
       {/* <TravelMap/> */}
-      <ListingAttractionsApp user={user} />
+      <ListingAttractionsApp user={user} favorites={favorites} />
     </div>
   );
 }

@@ -30,9 +30,12 @@ export default async function RootLayout(props: Props) {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
-  if (!user) {
-    redirect(`/login`);
-  }
+  // if (!user) {
+  //   redirect('/login');
+  // }
+  // if (!user) {
+  //   redirect(`/login?returnTo=/favorites/${user.username}`);
+  // }
   // if user is not undefined, the person is logged in
   // if user is undefined, the person is logged out
   console.log(user);
@@ -60,12 +63,14 @@ export default async function RootLayout(props: Props) {
             <Link href="/login">
               <li className={styles.li}>Login</li>
             </Link>
-            <Link href={`/favorites/${user.username}`}>
-              <li className={styles.li}>
-                {user && user.username + ' '}Favorites
-                {/* <FavoriteIcon color="error" /> */}
-              </li>
-            </Link>
+            {user && (
+              <Link href={`/favorites/${user.username}`}>
+                <li className={styles.li}>
+                  {user.username + ' '}Favorites
+                  {/* <FavoriteIcon color="error" /> */}
+                </li>
+              </Link>
+            )}
             <Link href="/logout" prefetch={false}>
               <li className={styles.li}>Logout</li>
             </Link>

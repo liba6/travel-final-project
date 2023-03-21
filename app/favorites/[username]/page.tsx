@@ -1,12 +1,10 @@
-import { Box, Card, CardContent, Typography } from '@material-ui/core';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import PhoneIcon from '@material-ui/icons/Phone';
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getFavoritesByUserId } from '../../../database/favorites';
 import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByUsername } from '../../../database/users';
+import Favorites from '../../components /Favorites';
+import styles from '../page.module.scss';
 
 type Props = {
   params: { username: string };
@@ -32,42 +30,11 @@ export default async function UserFavorites({ params }: Props) {
   console.log(user);
 
   const favorites = await getFavoritesByUserId(user.id);
+
   return (
-    <>
+    <div>
       <h1>{user.username}'s Favorites</h1>
-      {/* <p>id: {user.id}</p> */}
-      {favorites.map((favorite) => (
-        <div key={`favorite-${favorite.attraction}`}>
-          {favorite.address}
-          {favorite.website}
-          {/* <Card elevation={6}>
-            <CardContent>
-              <Box display="flex" justifyContent="space-between">
-                <Typography gutterBottom variant="h5">
-                  {favorite.attraction}
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="subtitle2"
-                  color="textSecondary"
-                >
-                  <PhoneIcon />
-                  {favorite.phone}
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="subtitle2"
-                  color="textSecondary"
-                >
-                  {favorite.address}
-                  {favorite.attraction} Website
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card> */}
-        </div>
-      ))}
-      ;
-    </>
+      <Favorites favorites={favorites} />
+    </div>
   );
 }

@@ -1,8 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createFavorite, Favorite } from '../../../database/favorites';
+import {
+  createFavorite,
+  deleteFavoriteById,
+  Favorite,
+} from '../../../database/favorites';
 
 const favoritesSchema = z.object({
+  attraction: z.string(),
+  address: z.string().nullable(),
+  website: z.string().nullable(),
+  phone: z.string().nullable(),
+  userId: z.number(),
+});
+const deleteSchema = z.object({
   attraction: z.string(),
   address: z.string().nullable(),
   website: z.string().nullable(),

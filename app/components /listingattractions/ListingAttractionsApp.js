@@ -33,6 +33,7 @@ export default function ListingAttractions(props) {
   const [selection, setSelection] = useState('');
   const [isLiked, setIsLiked] = useState(false);
   const [error, setError] = useState('');
+  const [favorites, setFavorites] = useState(props.favorites);
 
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -70,14 +71,24 @@ export default function ListingAttractions(props) {
   }, [selection, myToken]);
 
   // console.log('coordslatlng', coords[0], coords[1])
-  // api call to get places for any given location
+  // api call to get attractions for any given location
   useEffect(() => {
     getPlacesData(coords).then((data) => {
       // console.log('datalocations', data);
+
+      // if place. name is the name as favorites.name
+
+      // set const to store new array
+
+      // each place should contain new property called favorite
+
+      //
+      // data.map((place)=> place.name =
       setPlaces(data);
     });
   }, [coords]);
 
+  console.log('favoritesFromdb', favorites);
   return (
     <div>
       <CssBaseline />
