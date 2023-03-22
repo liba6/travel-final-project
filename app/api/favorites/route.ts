@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import {
-  createFavorite,
-  deleteFavoriteById,
-  Favorite,
-} from '../../../database/favorites';
+import { createFavorite, Favorite } from '../../../database/favorites';
 
 const favoritesSchema = z.object({
   attraction: z.string(),
@@ -13,13 +9,7 @@ const favoritesSchema = z.object({
   phone: z.string().nullable(),
   userId: z.number(),
 });
-const deleteSchema = z.object({
-  attraction: z.string(),
-  address: z.string().nullable(),
-  website: z.string().nullable(),
-  phone: z.string().nullable(),
-  userId: z.number(),
-});
+
 export type FavoriteResponseBodyPost =
   | { error: string }
   | {
@@ -44,7 +34,7 @@ export async function POST(
       { status: 400 },
     );
   }
-  console.log('bodyinapiroute', result);
+  // console.log('bodyinapiroute', result);
 
   const newFavorite = await createFavorite(
     result.data.attraction,

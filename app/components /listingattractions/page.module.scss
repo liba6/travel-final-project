@@ -55,6 +55,7 @@
   height: 58vw;
   margin-top: -90px;
   margin-left: -18px;
+  max-width: 900rem;
 }
 
 .subtitle {
@@ -123,6 +124,7 @@
 .cardContainer {
   overflow-y: auto;
   max-height: 100vh;
+  max-width: 57%;
 }
 
 .card {

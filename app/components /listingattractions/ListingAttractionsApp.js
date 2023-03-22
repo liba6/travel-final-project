@@ -24,6 +24,8 @@ import getPlacesData from '../../../util/places';
 import TravelMap from '../map/TravelMap';
 import styles from './page.module.scss';
 
+console.log('hello');
+
 export default function ListingAttractions(props) {
   const [places, setPlaces] = useState([]);
   // const [apiData, setApiData] = useState('')
@@ -35,6 +37,7 @@ export default function ListingAttractions(props) {
   const [error, setError] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
 
+  console.log('places', places);
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
 
@@ -72,39 +75,45 @@ export default function ListingAttractions(props) {
 
   // console.log('coordslatlng', coords[0], coords[1])
   useEffect(() => {
-    getPlacesData(coords).then((data) => {
-      // api call to get attractions for any given location
-
-      // mapping over all favorites from database and making new array with just the attraction names
+    async function a() {
+      const placesData = await getPlacesData(coords);
       const attractionsFromDatabaseArray = favorites.map(
         (place) => place.attraction,
       );
       console.log('attractfromdbarr', attractionsFromDatabaseArray);
 
       // mapping over all attractions given by api, taking only the attraction and comparing with db to find common attractions
-      const commonAttractions = data
+      const commonAttractions = placesData
         .map((place) => place.attraction)
         .filter((attraction) =>
           attractionsFromDatabaseArray.includes(attraction),
         );
-
       console.log('commonAttractions', commonAttractions);
 
       // map over data, to add clicked value true to favorites, false to others
 
-      const placesWithClicks = data.map((place) => {
-        if (commonAttractions.includes(data.attraction)) {
+      const placesWithClicks = placesData.map((place) => {
+        if (attractionsFromDatabaseArray.includes(place.attraction)) {
           return { ...place, isClicked: true };
         }
         return { ...place, isClicked: false };
       });
 
       console.log('placesWithClicks', placesWithClicks);
-      setPlaces(placesWithClicks);
-      // setPlaces(data);
-    });
-  }, [coords]);
+      setPlaces(placesData);
+    }
 
+    a().catch((error) => {
+      console.log(error);
+    });
+    // .then((data) => {
+    // api call to get attractions for any given location
+
+    // mapping over all favorites from database and making new array with just the attraction names
+
+    // setPlaces(data);
+  }, [coords, favorites]);
+  console.log('placesfromapi?', places);
   return (
     <div>
       <CssBaseline />
@@ -174,8 +183,8 @@ export default function ListingAttractions(props) {
       <div>
         <Grid container spacing={1} className={styles.list}>
           <div className={styles.cardContainer}>
-            {places?.map((place, i) => (
-              <Grid key={`place-${place.id}`} item xs={12} md={7}>
+            {places.map((place, i) => (
+              <Grid key={`place-${place.attraction}`} item xs={12} md={7}>
                 <Card elevation={6} className={styles.card}>
                   <CardMedia
                     className={styles.cardmedia}

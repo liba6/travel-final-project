@@ -32,7 +32,7 @@ export default async function UserFavorites({ params }: Props) {
   const favorites = await getFavoritesByUserId(user.id);
 
   return (
-    <div>
+    <div className={styles.favorites}>
       <h1 className={styles.h1}>{user.username}'s Favorites</h1>
       <Favorites favorites={favorites} />
     </div>
