@@ -33,7 +33,7 @@ export default async function UserFavorites({ params }: Props) {
 
   return (
     <div>
-      <h1>{user.username}'s Favorites</h1>
+      <h1 className={styles.h1}>{user.username}'s Favorites</h1>
       <Favorites favorites={favorites} />
     </div>
   );

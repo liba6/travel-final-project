@@ -13,8 +13,9 @@ export default async function Attractions() {
   const user = !sessionToken?.value
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
-  const favorites = getFavoritesByUserId(user.id);
-  console.log('faves', favorites);
+
+  const favorites = await getFavoritesByUserId(user.id);
+
   return (
     <div>
       {/* <Header /> */}

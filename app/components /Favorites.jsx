@@ -23,56 +23,62 @@ export default function Favorites(props) {
   const router = useRouter();
   return (
     <div>
-      <Card elevation={6}>
-        <Grid item xs={12} md={4}>
-          {props.favorites.map((favorite) => (
-            <div key={`favorite-${favorite.attraction}`}>
-              <h2 className={styles.attraction}>
-                {' '}
-                {/* <AttractionsOutlinedIcon /> */}
-                {favorite.attraction}
-              </h2>
+      <Grid container spacing={2} className={styles.cardGridContainer}>
+        <Grid item xs={12} md={5} className={styles.cardContainer}>
+          <Card elevation={6} className={styles.card}>
+            {/* <Grid item xs={12} md={}> */}
+            {props.favorites.map((favorite) => (
+              <div key={`favorite-${favorite.attraction}`}>
+                <h2 className={styles.attraction}>
+                  {' '}
+                  {/* <AttractionsOutlinedIcon /> */}
+                  {favorite.attraction}
+                </h2>
 
-              <h2 className={styles.website}>
-                {' '}
-                <LanguageOutlinedIcon />
-                {favorite.website}
-              </h2>
-              <h2>
-                <LocationOnIcon />
-                {favorite.address}
-              </h2>
-              <h2>
-                {' '}
-                <PhoneIcon />
-                {favorite.phone}
-              </h2>
-              <button
-                onClick={async () => {
-                  // send api request to delete favorite from database
-                  const response = await fetch(
-                    `/api/favorites/${favorite.id}`,
-                    {
-                      method: 'DELETE',
-                    },
-                  );
+                <p className={styles.address}>
+                  <LocationOnIcon />
+                  {favorite.address}
+                </p>
+                <p className={styles.phone}>
+                  {' '}
+                  <PhoneIcon />
+                  {favorite.phone}
+                </p>
 
-                  const data = await response.json();
+                <p className={styles.website}>
+                  {' '}
+                  <LanguageOutlinedIcon />
+                  {favorite.website}
+                </p>
+                <button
+                  className={styles.delete}
+                  onClick={async () => {
+                    // send api request to delete favorite from database
+                    const response = await fetch(
+                      `/api/favorites/${favorite.id}`,
+                      {
+                        method: 'DELETE',
+                      },
+                    );
 
-                  if (data.error) {
-                    console.error(data.error);
-                    // return error;
-                  }
-                  // console.log('data', data);
-                  router.refresh();
-                }}
-              >
-                <DeleteForeverRoundedIcon />
-              </button>
-            </div>
-          ))}
+                    const data = await response.json();
+
+                    if (data.error) {
+                      console.error(data.error);
+                      // return error;
+                    }
+                    // console.log('data', data);
+                    router.refresh();
+                  }}
+                >
+                  <DeleteForeverRoundedIcon size="large" />
+                </button>
+              </div>
+            ))}
+            {/* </Grid> */}
+          </Card>
         </Grid>
-      </Card>
+      </Grid>
     </div>
   );
 }

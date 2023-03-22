@@ -2,6 +2,17 @@
   display: flex;
   list-style: none;
   margin-left: 900px;
+  // position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  font-size: 18px;
+  // font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  transition: color 0.3s ease;
 }
 .body {
   background-color: #d2bd9c;
@@ -12,6 +23,10 @@
   color: #6b6454;
   // #9cb1d2;
   text-decoration: none;
+
+  // color: #fff;
+  margin-left: 20px;
+  transition: color 0.3s ease;
 }
 
 .logo {

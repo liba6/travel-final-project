@@ -71,24 +71,40 @@ export default function ListingAttractions(props) {
   }, [selection, myToken]);
 
   // console.log('coordslatlng', coords[0], coords[1])
-  // api call to get attractions for any given location
   useEffect(() => {
     getPlacesData(coords).then((data) => {
-      // console.log('datalocations', data);
+      // api call to get attractions for any given location
 
-      // if place. name is the name as favorites.name
+      // mapping over all favorites from database and making new array with just the attraction names
+      const attractionsFromDatabaseArray = favorites.map(
+        (place) => place.attraction,
+      );
+      console.log('attractfromdbarr', attractionsFromDatabaseArray);
 
-      // set const to store new array
+      // mapping over all attractions given by api, taking only the attraction and comparing with db to find common attractions
+      const commonAttractions = data
+        .map((place) => place.attraction)
+        .filter((attraction) =>
+          attractionsFromDatabaseArray.includes(attraction),
+        );
 
-      // each place should contain new property called favorite
+      console.log('commonAttractions', commonAttractions);
 
-      //
-      // data.map((place)=> place.name =
-      setPlaces(data);
+      // map over data, to add clicked value true to favorites, false to others
+
+      const placesWithClicks = data.map((place) => {
+        if (commonAttractions.includes(data.attraction)) {
+          return { ...place, isClicked: true };
+        }
+        return { ...place, isClicked: false };
+      });
+
+      console.log('placesWithClicks', placesWithClicks);
+      setPlaces(placesWithClicks);
+      // setPlaces(data);
     });
   }, [coords]);
 
-  console.log('favoritesFromdb', favorites);
   return (
     <div>
       <CssBaseline />
@@ -134,7 +150,7 @@ export default function ListingAttractions(props) {
                         : 'suggestion-item';
                       // inline style for demonstration purpose
                       const style = suggestion.active
-                        ? { backgroundColor: '#6b6454', cursor: 'pointer' }
+                        ? { backgroundColor: '#d2bd9c', cursor: 'pointer' }
                         : { backgroundColor: '#9cb1d2', cursor: 'pointer' };
                       return (
                         <div
@@ -156,114 +172,119 @@ export default function ListingAttractions(props) {
         </Toolbar>
       </AppBar>
       <div>
-        <Grid container spacing={3} className={styles.list}>
-          {places?.map((place, i) => (
-            <Grid key={`place-${place.id}`} item xs={12} md={6}>
-              <Card elevation={6} className={styles.card}>
-                <CardMedia
-                  className={styles.cardmedia}
-                  image={
-                    place.photo
-                      ? place.photo.images.large.url
-                      : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'
-                  }
-                  title={place.name}
-                />
-                <CardContent>
-                  <Box display="flex" justifyContent="space-between">
-                    <Typography gutterBottom variant="h5">
-                      {place.name}
-                    </Typography>
-                    {!props.user ? undefined : (
-                      <button
-                        className={styles.favorite}
-                        onClick={async () => {
-                          setIsLiked(!isLiked);
+        <Grid container spacing={1} className={styles.list}>
+          <div className={styles.cardContainer}>
+            {places?.map((place, i) => (
+              <Grid key={`place-${place.id}`} item xs={12} md={7}>
+                <Card elevation={6} className={styles.card}>
+                  <CardMedia
+                    className={styles.cardmedia}
+                    image={
+                      place.photo
+                        ? place.photo.images.large.url
+                        : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'
+                    }
+                    title={place.name}
+                  />
+                  <CardContent>
+                    <Box display="flex" justifyContent="space-between">
+                      <Typography gutterBottom variant="h5">
+                        {place.name}
+                      </Typography>
+                      {!props.user ? undefined : (
+                        <button
+                          className={styles.favorite}
+                          onClick={async () => {
+                            // setIsLiked(!isLiked);
+                            setPlaces(place.name, !place.isClicked);
 
-                          const response = await fetch('/api/favorites', {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                              attraction: place.name,
-                              address: place.address || null,
-                              website: place.website || null,
-                              phone: place.phone || null,
-                              userId: props.user.id,
-                            }),
-                          });
+                            const response = await fetch('/api/favorites', {
+                              method: 'POST',
+                              headers: {
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                attraction: place.name,
+                                address: place.address || null,
+                                website: place.website || null,
+                                phone: place.phone || null,
+                                userId: props.user.id,
+                              }),
+                            });
 
-                          const data = await response.json();
+                            const data = await response.json();
 
-                          if (data.error) {
-                            setError(data.error);
-                            return error;
-                          }
-                          console.log('data', data);
+                            if (data.error) {
+                              setError(data.error);
+                              return error;
+                            }
+                            console.log('data', data);
 
-                          !isLiked &&
-                            alert(
-                              `Hooray! You have successfully added ${place.name} to your favorites!`,
-                            );
-                        }}
+                            // !isLiked &&
+                            !place.isClicked &&
+                              alert(
+                                `Hooray! You have successfully added ${place.name} to your favorites!`,
+                              );
+                          }}
+                        >
+                          {place.isClicked ? (
+                            // {isLiked ? (
+                            <FavoriteIcon color="error" />
+                          ) : (
+                            <FavoriteBorderOutlinedIcon />
+                          )}
+                        </button>
+                      )}
+                    </Box>
+                    <Box display="flex" justifyContent="space-between">
+                      <Typography variant="subtitle1">
+                        {place.price_level}
+                      </Typography>
+                    </Box>
+
+                    {place?.address && (
+                      <Typography
+                        gutterBottom
+                        variant="subtitle2"
+                        color="textSecondary"
+                        className={styles.subtitle}
                       >
-                        {isLiked ? (
-                          <FavoriteIcon color="error" />
-                        ) : (
-                          <FavoriteBorderOutlinedIcon />
-                        )}
-                      </button>
+                        <LocationOnIcon />
+                        {place.address}
+                      </Typography>
                     )}
-                  </Box>
-                  <Box display="flex" justifyContent="space-between">
-                    <Typography variant="subtitle1">
-                      {place.price_level}
-                    </Typography>
-                  </Box>
+                    {place?.phone && (
+                      <Typography
+                        gutterBottom
+                        variant="subtitle2"
+                        color="textSecondary"
+                        className={styles.spacing}
+                      >
+                        <PhoneIcon /> {place.phone}
+                      </Typography>
+                    )}
+                  </CardContent>
+                  <CardActions className={styles.cardActions}>
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => window.open(place.web_url, '_blank')}
+                    >
+                      Trip Advisor
+                    </Button>
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => window.open(place.website, '_blank')}
+                    >
+                      {place.name} Website
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </div>
 
-                  {place?.address && (
-                    <Typography
-                      gutterBottom
-                      variant="subtitle2"
-                      color="textSecondary"
-                      className={styles.subtitle}
-                    >
-                      <LocationOnIcon />
-                      {place.address}
-                    </Typography>
-                  )}
-                  {place?.phone && (
-                    <Typography
-                      gutterBottom
-                      variant="subtitle2"
-                      color="textSecondary"
-                      className={styles.spacing}
-                    >
-                      <PhoneIcon /> {place.phone}
-                    </Typography>
-                  )}
-                </CardContent>
-                <CardActions className={styles.cardActions}>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => window.open(place.web_url, '_blank')}
-                  >
-                    Trip Advisor
-                  </Button>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => window.open(place.website, '_blank')}
-                  >
-                    {place.name} Website
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-          ;
           <Grid item xs={12} md={7} className={styles.travelmap}>
             <TravelMap
               // setCoords={setCoords}
