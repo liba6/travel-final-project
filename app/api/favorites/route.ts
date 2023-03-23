@@ -34,8 +34,15 @@ export async function POST(
       { status: 400 },
     );
   }
-  // console.log('bodyinapiroute', result);
-
+  if (result.data.address === null) {
+    result.data.address = '';
+  }
+  if (result.data.website === null) {
+    result.data.website = '';
+  }
+  if (result.data.phone === null) {
+    result.data.phone = '';
+  }
   const newFavorite = await createFavorite(
     result.data.attraction,
     result.data.address,

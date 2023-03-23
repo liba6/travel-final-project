@@ -33,7 +33,7 @@ export default function ListingAttractions(props) {
   // const [bounds, setBounds] = useState(null);
   const [address, setAddress] = useState('');
   const [selection, setSelection] = useState('');
-  const [isLiked, setIsLiked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
   const [error, setError] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
 
@@ -80,27 +80,20 @@ export default function ListingAttractions(props) {
       const attractionsFromDatabaseArray = favorites.map(
         (place) => place.attraction,
       );
-      console.log('attractfromdbarr', attractionsFromDatabaseArray);
-
-      // mapping over all attractions given by api, taking only the attraction and comparing with db to find common attractions
-      const commonAttractions = placesData
-        .map((place) => place.attraction)
-        .filter((attraction) =>
-          attractionsFromDatabaseArray.includes(attraction),
-        );
-      console.log('commonAttractions', commonAttractions);
+      console.log('placesData', placesData);
+      console.log('attfromdb', attractionsFromDatabaseArray);
 
       // map over data, to add clicked value true to favorites, false to others
 
       const placesWithClicks = placesData.map((place) => {
-        if (attractionsFromDatabaseArray.includes(place.attraction)) {
+        if (attractionsFromDatabaseArray.includes(place.name)) {
           return { ...place, isClicked: true };
         }
         return { ...place, isClicked: false };
       });
 
       console.log('placesWithClicks', placesWithClicks);
-      setPlaces(placesData);
+      setPlaces(placesWithClicks);
     }
 
     a().catch((error) => {
@@ -113,7 +106,6 @@ export default function ListingAttractions(props) {
 
     // setPlaces(data);
   }, [coords, favorites]);
-  console.log('placesfromapi?', places);
   return (
     <div>
       <CssBaseline />
@@ -204,8 +196,7 @@ export default function ListingAttractions(props) {
                         <button
                           className={styles.favorite}
                           onClick={async () => {
-                            // setIsLiked(!isLiked);
-                            setPlaces(place.name, !place.isClicked);
+                            //  setPlaces(...place, place.name, !place.isClicked);
 
                             const response = await fetch('/api/favorites', {
                               method: 'POST',
@@ -236,7 +227,7 @@ export default function ListingAttractions(props) {
                               );
                           }}
                         >
-                          {places.isClicked ? (
+                          {place.isClicked ? (
                             // {isLiked ? (
                             <FavoriteIcon color="error" />
                           ) : (

@@ -13,10 +13,10 @@ export default function AddRestaurants() {
     >
       <Image
         className={styles.img}
-        src="/attractionsgif.gif"
+        src="/attractions.jpeg"
         alt="globe image"
         width={1500}
-        height={1000}
+        height={800}
         quality={100}
       />
     </div>

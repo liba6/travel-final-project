@@ -13,9 +13,9 @@ export type Favorite = {
 export const createFavorite = cache(
   async (
     attraction: string,
-    address: string | null,
-    website: string | null,
-    phone: string | null,
+    address: string,
+    website: string,
+    phone: string,
     userId: number,
   ) => {
     const [favorite] = await sql<Favorite[]>`

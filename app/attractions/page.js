@@ -15,13 +15,13 @@ export default async function Attractions() {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
-  const favorites = await getFavoritesByUserId(user.id);
-
   // if there is no user
   if (user === undefined) {
     alert('Please login first.');
     redirect('/login');
   }
+  const favorites = await getFavoritesByUserId(user.id);
+
   return (
     <div>
       {/* <Header /> */}
