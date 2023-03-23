@@ -63,6 +63,9 @@
   display: flex;
   width: 100%;
   margin-top: 5px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow-x: auto;
 }
 
 .h1 {
@@ -80,6 +83,6 @@
 .divFlex {
   display: flex;
   // flex-wrap: wrap;
-  overflow-x: scroll;
+  // overflow-x: scroll;
   // width: 90%;
 }

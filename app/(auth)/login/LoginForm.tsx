@@ -64,10 +64,10 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
             />
           </label>
           <div className={styles.buttons}>
-            <button className={styles.button}>Login</button>
+            <button className={styles.button}>Log In</button>
 
             <Link className={styles.button} href="/register">
-              Need to Register?
+              No account yet?
             </Link>
           </div>
         </div>
