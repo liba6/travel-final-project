@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { getUserBySessionToken } from '../database/users';
 // import './globals.css';
 import styles from './layout.module.scss';
@@ -55,7 +54,7 @@ export default async function RootLayout(props: Props) {
           </Link>
           <ul className={styles.nav}>
             <Link href="/attractions">
-              <li className={styles.li}>Attractions</li>
+              <li className={styles.li}>Find an Attraction</li>
             </Link>
             {/* <Link href="/register">
       <li className={styles.li}>Register</li>

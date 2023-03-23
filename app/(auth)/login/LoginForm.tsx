@@ -66,8 +66,8 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
           <div className={styles.buttons}>
             <button className={styles.button}>Login</button>
 
-            <Link href="/register">
-              <button className={styles.button}>Need to Register?</button>
+            <Link className={styles.button} href="/register">
+              Need to Register?
             </Link>
           </div>
         </div>

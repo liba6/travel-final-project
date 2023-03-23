@@ -183,7 +183,7 @@ export default function ListingAttractions(props) {
       <div>
         <Grid container spacing={1} className={styles.list}>
           <div className={styles.cardContainer}>
-            {places.map((place, i) => (
+            {places.map((place) => (
               <Grid key={`place-${place.attraction}`} item xs={12} md={7}>
                 <Card elevation={6} className={styles.card}>
                   <CardMedia
@@ -232,11 +232,11 @@ export default function ListingAttractions(props) {
                             // !isLiked &&
                             !place.isClicked &&
                               alert(
-                                `Hooray! You have successfully added ${place.name} to your favorites!`,
+                                `Yes! You have successfully added ${place.name} to your favorites!`,
                               );
                           }}
                         >
-                          {place.isClicked ? (
+                          {places.isClicked ? (
                             // {isLiked ? (
                             <FavoriteIcon color="error" />
                           ) : (

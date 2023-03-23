@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { getFavoritesByUserId } from '../../database/favorites';
 import { getUserBySessionToken } from '../../database/users';
 import ListingAttractionsApp from '../components /listingattractions/ListingAttractionsApp';
@@ -16,6 +17,11 @@ export default async function Attractions() {
 
   const favorites = await getFavoritesByUserId(user.id);
 
+  // if there is no user
+  if (user === undefined) {
+    alert('Please login first.');
+    redirect('/login');
+  }
   return (
     <div>
       {/* <Header /> */}

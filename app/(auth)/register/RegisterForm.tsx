@@ -43,30 +43,32 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
         <div key={`error - ${error.message}`}>Error:{error.message}</div>
       ))}
 
-      <div className={styles.container}>
-        <h1 className={styles.h1}>Register</h1>
+      <div className={styles.body}>
+        <div className={styles.container}>
+          <h1 className={styles.h1}>Register</h1>
 
-        <label>
-          Username:
-          <input
-            value={username}
-            onChange={(event) => setUsername(event.currentTarget.value)}
-            className={styles.input}
-          />
-        </label>
-        <label>
-          password:
-          <input
-            value={password}
-            onChange={(event) => setPassword(event.currentTarget.value)}
-            className={styles.input}
-          />
-        </label>
-        <div className={styles.buttons}>
-          <button className={styles.button}>Register</button>
-          <Link href="./login">
-            <button className={styles.button}>Already Registered?</button>
-          </Link>
+          <label>
+            Username:
+            <input
+              value={username}
+              onChange={(event) => setUsername(event.currentTarget.value)}
+              className={styles.input}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              value={password}
+              onChange={(event) => setPassword(event.currentTarget.value)}
+              className={styles.input}
+            />
+          </label>
+          <div className={styles.buttons}>
+            <button className={styles.button}>Register</button>
+            <Link href="/login" className={styles.button}>
+              Already Registered?
+            </Link>
+          </div>
         </div>
       </div>
     </form>

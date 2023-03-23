@@ -1,7 +1,6 @@
 'use client';
 
-import { Paper, Typography, useMediaQuery } from '@material-ui/core';
-import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+import { Paper, Typography } from '@material-ui/core';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import styles from './page.module.scss';
 
@@ -12,7 +11,7 @@ const containerStyle = {
 };
 
 export default function TravelMap({ coords, places }) {
-  const matches = useMediaQuery('(min-width:600px');
+  // const matches = useMediaQuery('(min-width:600px');
 
   const coordinates = {
     lat: coords[1],
@@ -33,7 +32,7 @@ export default function TravelMap({ coords, places }) {
         defaultCenter={coordinates}
         zoom={12}
         margin={[50, 50, 50, 50]}
-        options={''}
+        options=""
         //  onBoundsChanged={(e) => {
         // //   // GoogleMap.getCenter()
         //   console.log('e', e)
@@ -83,7 +82,7 @@ export default function TravelMap({ coords, places }) {
       </GoogleMap>
     </div>
   ) : (
-    <></>
+    <>''</>
   );
 }
 

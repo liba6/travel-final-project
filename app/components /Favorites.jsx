@@ -1,19 +1,7 @@
 'use client';
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Chip,
-  CssBaseline,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Card, Grid } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PhoneIcon from '@material-ui/icons/Phone';
-import AttractionsOutlinedIcon from '@mui/icons-material/AttractionsOutlined';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import { useRouter } from 'next/navigation';

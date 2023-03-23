@@ -8,13 +8,13 @@
   text-align: center;
 }
 
-// .body {
-//   position: flex;
-//   margin-right: 450px;
-//   margin-left: 450px;
-//   height: 100vh;
-//   margin: 0;
-// }
+.body {
+  //   position: flex;
+  margin-top: 150px;
+  //   margin-left: 450px;
+  //   height: 100vh;
+  //   margin: 0;
+}
 
 .container {
   border-radius: 5px;
@@ -47,6 +47,7 @@
   margin-right: 20px;
   font-size: 18px;
   transition: all 0.2s ease-in-out;
+  text-decoration: none;
 }
 .button:hover {
   background-color: #6b6454;
@@ -55,8 +56,9 @@
 }
 
 .buttons {
-  margin-left: 80px;
   margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
 }
 
 @media only screen and (max-width: 767px) {

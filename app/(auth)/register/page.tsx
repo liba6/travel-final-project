@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionByToken } from '../../../database/sessions';
-import styles from './page.module.scss';
 import RegisterForm from './RegisterForm';
 
 type Props = { searchParams: { returnTo?: string | string[] } };
