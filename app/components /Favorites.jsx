@@ -12,7 +12,9 @@ export default function Favorites(props) {
   return (
     <div className={styles.favorites}>
       <Grid container spacing={3} className={styles.cardGridContainer}>
-        <div>
+        <h1 className={styles.h1}>{props.user.username}'s Favorites</h1>
+
+        <div className={styles.divFlex}>
           {props.favorites.map((favorite) => (
             <Grid key={`favorite-${favorite.attraction}`} item xs={12} md={6}>
               <Card elevation={6} className={styles.card}>
@@ -23,21 +25,28 @@ export default function Favorites(props) {
                     {favorite.attraction}
                   </h2>
 
-                  <p className={styles.address}>
-                    <LocationOnIcon />
-                    {favorite.address}
-                  </p>
-                  <p className={styles.phone}>
-                    {' '}
-                    <PhoneIcon />
-                    {favorite.phone}
-                  </p>
+                  {favorite?.address && (
+                    <p className={styles.address}>
+                      <LocationOnIcon />
+                      {favorite.address}
+                    </p>
+                  )}
 
-                  <p className={styles.website}>
-                    {' '}
-                    <LanguageOutlinedIcon />
-                    {favorite.website}
-                  </p>
+                  {favorite?.phone && (
+                    <p className={styles.phone}>
+                      {' '}
+                      <PhoneIcon />
+                      {favorite.phone}
+                    </p>
+                  )}
+
+                  {favorite?.website && (
+                    <a className={styles.website} href={favorite.website}>
+                      <LanguageOutlinedIcon />
+
+                      {favorite.website}
+                    </a>
+                  )}
                   <button
                     className={styles.delete}
                     onClick={async () => {

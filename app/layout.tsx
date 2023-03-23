@@ -47,8 +47,8 @@ export default async function RootLayout(props: Props) {
             <Image
               src="/logo.png"
               alt="globe with logo"
-              width="450"
-              height="450"
+              width="250"
+              height="250"
               className={styles.logo}
             />
           </Link>
