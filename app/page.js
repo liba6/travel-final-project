@@ -8,9 +8,12 @@ export const metadata = {
 };
 export default function AddRestaurants() {
   return (
-    <div
-    // className={styles.globe}
-    >
+    <div>
+      <div>
+        <h1 className={styles.h1}>WANDERLUST</h1>
+        <p className={styles.p}>Discover the World's Attractions </p>
+        <button>Start my Adventure</button>
+      </div>
       <Image
         className={styles.img}
         src="/attractions.jpeg"

@@ -4,9 +4,9 @@ import { sql } from './connect';
 export type Favorite = {
   id: number;
   attraction: string;
-  address: string | null;
-  website: string | null;
-  phone: string | null;
+  address: string;
+  website: string;
+  phone: string;
   userId: number;
 };
 

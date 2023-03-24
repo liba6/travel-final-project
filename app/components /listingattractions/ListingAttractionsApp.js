@@ -24,31 +24,20 @@ import getPlacesData from '../../../util/places';
 import TravelMap from '../map/TravelMap';
 import styles from './page.module.scss';
 
-console.log('hello');
-
 export default function ListingAttractions(props) {
   const [places, setPlaces] = useState([]);
-  // const [apiData, setApiData] = useState('')
   const [coords, setCoords] = useState({});
-  // const [bounds, setBounds] = useState(null);
   const [address, setAddress] = useState('');
   const [selection, setSelection] = useState('');
-  // const [isLiked, setIsLiked] = useState(false);
   const [error, setError] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
 
-  console.log('places', places);
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
 
   const handleSelect = (value) => {
-    // const results =  geocodeByAddress(value);
-    // const ll =  getLatLng(results[0]);
-    // console.log('results', results)
-    // console.log('ll', ll);
     setSelection(value);
     setAddress(value);
-    // setCoordinates(ll)
   };
 
   // api call to get current user location as starting point
@@ -73,18 +62,15 @@ export default function ListingAttractions(props) {
       .catch(() => console.log('Error'));
   }, [selection, myToken]);
 
-  // console.log('coordslatlng', coords[0], coords[1])
+  // get database favorites
   useEffect(() => {
     async function a() {
       const placesData = await getPlacesData(coords);
       const attractionsFromDatabaseArray = favorites.map(
         (place) => place.attraction,
       );
-      console.log('placesData', placesData);
-      console.log('attfromdb', attractionsFromDatabaseArray);
 
       // map over data, to add clicked value true to favorites, false to others
-
       const placesWithClicks = placesData.map((place) => {
         if (attractionsFromDatabaseArray.includes(place.name)) {
           return { ...place, isClicked: true };
@@ -99,13 +85,8 @@ export default function ListingAttractions(props) {
     a().catch((error) => {
       console.log(error);
     });
-    // .then((data) => {
-    // api call to get attractions for any given location
-
-    // mapping over all favorites from database and making new array with just the attraction names
-
-    // setPlaces(data);
   }, [coords, favorites]);
+
   return (
     <div>
       <CssBaseline />
@@ -196,7 +177,15 @@ export default function ListingAttractions(props) {
                         <button
                           className={styles.favorite}
                           onClick={async () => {
-                            //  setPlaces(...place, place.name, !place.isClicked);
+                            const newPlaces = places.map((item) => {
+                              if (item.name !== place.name) {
+                                return item;
+                              } else {
+                                return { ...item, isClicked: true };
+                              }
+                            });
+
+                            setPlaces(newPlaces);
 
                             const response = await fetch('/api/favorites', {
                               method: 'POST',
@@ -218,9 +207,7 @@ export default function ListingAttractions(props) {
                               setError(data.error);
                               return error;
                             }
-                            console.log('data', data);
 
-                            // !isLiked &&
                             !place.isClicked &&
                               alert(
                                 `Yes! You have successfully added ${place.name} to your favorites!`,
@@ -228,7 +215,6 @@ export default function ListingAttractions(props) {
                           }}
                         >
                           {place.isClicked ? (
-                            // {isLiked ? (
                             <FavoriteIcon color="error" />
                           ) : (
                             <FavoriteBorderOutlinedIcon />
@@ -286,12 +272,7 @@ export default function ListingAttractions(props) {
           </div>
 
           <Grid item xs={12} md={7} className={styles.travelmap}>
-            <TravelMap
-              // setCoords={setCoords}
-              // setBounds= {setBounds}
-              coords={coords}
-              places={places}
-            />
+            <TravelMap coords={coords} places={places} />
           </Grid>
         </Grid>
       </div>

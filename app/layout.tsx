@@ -54,13 +54,13 @@ export default async function RootLayout(props: Props) {
           </Link>
           <ul className={styles.nav}>
             <Link href="/attractions">
-              <li className={styles.li}>Find an Attraction</li>
+              <li className={styles.li}>Attractions</li>
             </Link>
             {/* <Link href="/register">
       <li className={styles.li}>Register</li>
       </Link> */}
             <Link href="/login">
-              <li className={styles.li}>Login</li>
+              <li className={styles.li}>Log In</li>
             </Link>
             {user && (
               <Link href={`/favorites/${user.username}`}>

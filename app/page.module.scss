@@ -1,5 +1,30 @@
 .img {
   margin: auto;
   display: flex;
-  margin-top: 20px;
+  margin-top: -280px;
+  z-index: -5;
+  position: absolute;
+}
+
+.h1 {
+  font-family: Raleway;
+  // font-size: 120px;
+  // margin-bottom: -40px;
+  // width: 50px;
+  font-weight: 100;
+  align-items: center;
+  display: flex;
+  // margin-right: 220px;
+  // margin-left: 340px;
+}
+
+.p {
+  font-family: Raleway;
+  font-size: 40px;
+  // font-weight: 100;
+  align-items: center;
+  display: flex;
+  // margin-right: 220px;
+  // margin-left: 360px;
+  // margin-top: -100px;
 }
