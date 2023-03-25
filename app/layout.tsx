@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getUserBySessionToken } from '../database/users';
-// import './globals.css';
 import styles from './layout.module.scss';
 
 export const metadata = {
@@ -29,15 +28,6 @@ export default async function RootLayout(props: Props) {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
-  // if (!user) {
-  //   redirect('/login');
-  // }
-  // if (!user) {
-  //   redirect(`/login?returnTo=/favorites/${user.username}`);
-  // }
-  // if user is not undefined, the person is logged in
-  // if user is undefined, the person is logged out
-  console.log(user);
   return (
     <html lang="en">
       <head />
@@ -60,7 +50,7 @@ export default async function RootLayout(props: Props) {
       <li className={styles.li}>Register</li>
       </Link> */}
             <Link href="/login">
-              <li className={styles.li}>Log In</li>
+              <li className={styles.li}>Login</li>
             </Link>
             {user && (
               <Link href={`/favorites/${user.username}`}>
@@ -78,6 +68,7 @@ export default async function RootLayout(props: Props) {
 
         {props.children}
       </body>
+      {/* <footer>Designed by Liba Shapiro MSc</footer> */}
     </html>
   );
 }

@@ -17,7 +17,6 @@ export default async function Attractions() {
 
   // if there is no user
   if (user === undefined) {
-    alert('Please login first.');
     redirect('/login');
   }
   const favorites = await getFavoritesByUserId(user.id);

@@ -13,9 +13,9 @@ export default async function LoginPage(props: Props) {
     sessionTokenCookie &&
     (await getValidSessionByToken(sessionTokenCookie.value));
 
-  if (session) {
-    redirect('/');
-  }
+  // if (session) {
+  //   redirect('/');
+  // }
 
   // if not, render login component
 

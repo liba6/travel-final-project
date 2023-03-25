@@ -113,6 +113,7 @@
 .autocomplete-dropdown-container {
   position: absolute;
   top: 70px;
+  // top: calc(100% + 10px);
   left: 0;
   width: 200px;
   background-color: #fff;

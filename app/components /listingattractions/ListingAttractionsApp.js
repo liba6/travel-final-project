@@ -31,6 +31,7 @@ export default function ListingAttractions(props) {
   const [selection, setSelection] = useState('');
   const [error, setError] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
+  const [liked, setLiked] = useState(false);
 
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -178,7 +179,10 @@ export default function ListingAttractions(props) {
                           className={styles.favorite}
                           onClick={async () => {
                             const newPlaces = places.map((item) => {
-                              if (item.name !== place.name) {
+                              if (
+                                // liked &&
+                                item.name !== place.name
+                              ) {
                                 return item;
                               } else {
                                 return { ...item, isClicked: true };
@@ -186,6 +190,7 @@ export default function ListingAttractions(props) {
                             });
 
                             setPlaces(newPlaces);
+                            setLiked(!liked);
 
                             const response = await fetch('/api/favorites', {
                               method: 'POST',
@@ -208,13 +213,25 @@ export default function ListingAttractions(props) {
                               return error;
                             }
 
-                            !place.isClicked &&
-                              alert(
-                                `Yes! You have successfully added ${place.name} to your favorites!`,
-                              );
+                            // !place.isClicked &&
+                            //   alert(
+                            //     `Yes! You have successfully added ${place.name} to your favorites!`,
+                            //   );
+
+                            // if (!liked) {
+                            //   const res = await fetch(
+                            //     `/api/favorites/${place.id}`,
+                            //     {
+                            //       method: 'DELETE',
+                            //     },
+                            //   );
+
+                            //   const data = await res.json();
+                            // }
                           }}
                         >
                           {place.isClicked ? (
+                            // && liked
                             <FavoriteIcon color="error" />
                           ) : (
                             <FavoriteBorderOutlinedIcon />
