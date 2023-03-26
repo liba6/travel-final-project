@@ -1,7 +1,13 @@
 'use client';
 
-import { Paper, Typography } from '@material-ui/core';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { Typography } from '@material-ui/core';
+import {
+  GoogleMap,
+  InfoWindow,
+  Marker,
+  useJsApiLoader,
+} from '@react-google-maps/api';
+import { useState } from 'react';
 import styles from './page.module.scss';
 
 const containerStyle = {
@@ -13,6 +19,7 @@ const containerStyle = {
 export default function TravelMap({ coords, places }) {
   // const matches = useMediaQuery('(min-width:600px');
 
+  const [selectedPlace, setSelectedPlace] = useState(null);
   const coordinates = {
     lat: coords[1],
     lng: coords[0],
@@ -33,69 +40,51 @@ export default function TravelMap({ coords, places }) {
         zoom={12}
         margin={[50, 50, 50, 50]}
         options=""
-        //  onBoundsChanged={(e) => {
-        // //   // GoogleMap.getCenter()
-        //   console.log('e', e)
-        //   setCoords({ latitude: e.latitude, longitude: e.longitude });
-        // setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
-        //  }}
-        //  onLoad={map => {
-        //   const bounds = new window.google.maps.LatLngBounds();
-        //   map.fitBounds(bounds);
-        //   // console.log('coords', coords)
-        //   // console.log('bounds', bounds)
-
-        // }}
-        //  onChildClick={(child) => setChildClicked(child)}
-        // onLoad={onLoad}
-        // onUnmount={onUnmount}
       >
         {places?.map((place) => (
-          // <div
-          //   className={styles.markerContainer}
-          //   // lat = {Number(coords[1])}
-          //   // lng = {Number(coords[0])}
-          //   key={place.id}
-          <div key={`place-${place.id}`}>
-            className={styles.markerContainer}
-            {/* {matches ? (
-              <LocationOnOutlinedIcon color="primary" fontSize="large" />
-            ) : ( */}
-            <Paper elevation={3} className={styles.paper}>
+          <Marker
+            key={`place-${place.id}`}
+            position={{
+              lat: coords[1],
+              lng: coords[0],
+            }}
+            onClick={() => {
+              setSelectedPlace(place);
+            }}
+          />
+        ))}
+        console.log('cords', coords); console.log('places', places);
+        console.log('selectedPlace', selectedPlace)
+        {selectedPlace && (
+          <InfoWindow
+            position={{
+              lat: selectedPlace.latitude,
+              lng: selectedPlace.longitude,
+            }}
+            onCloseClick={() => {
+              setSelectedPlace(null);
+            }}
+          >
+            <div>
               <Typography variant="subtitle2" gutterBottom>
-                {place.name}
+                {selectedPlace.name}
               </Typography>
               <img
                 className={styles.pointer}
-                alt={place.name}
+                alt={selectedPlace.name}
                 src={
-                  place.photo
-                    ? place.photo.images.large.url
+                  selectedPlace.photo
+                    ? selectedPlace.photo.images.large.url
                     : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Attractions-Placeholder-001.jpg'
                 }
               />
-            </Paper>
-            {/* )} */}
-          </div>
-        ))}
-        <Marker position={{ coordinates }} />
+            </div>
+          </InfoWindow>
+        )}
+        <Marker position={coordinates} />
       </GoogleMap>
     </div>
   ) : (
     <>''</>
   );
 }
-
-// const PlacesAutocomplete = ({setSelected}) => {
-//   const {
-//     ready,
-// value,
-// setValue,
-// suggestions:{status, data},
-// clearSuggestions,
-//   } = usePlacesAutocomplete ();
-
-//   return <Combobox>
-//     <ComboboxInput  value ={value}/>
-//   </Combobox>
-// }

@@ -29,9 +29,8 @@ export default function ListingAttractions(props) {
   const [coords, setCoords] = useState({});
   const [address, setAddress] = useState('');
   const [selection, setSelection] = useState('');
-  const [error, setError] = useState('');
+  const [errormsg, setErrormsg] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
-  const [liked, setLiked] = useState(false);
 
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -67,6 +66,7 @@ export default function ListingAttractions(props) {
   useEffect(() => {
     async function a() {
       const placesData = await getPlacesData(coords);
+
       const attractionsFromDatabaseArray = favorites.map(
         (place) => place.attraction,
       );
@@ -177,61 +177,56 @@ export default function ListingAttractions(props) {
                       {!props.user ? undefined : (
                         <button
                           className={styles.favorite}
+                          // onclick changes the isClicked value for each item on each click
                           onClick={async () => {
                             const newPlaces = places.map((item) => {
-                              if (
-                                // liked &&
-                                item.name !== place.name
-                              ) {
+                              if (item.name !== place.name) {
                                 return item;
                               } else {
-                                return { ...item, isClicked: true };
+                                return { ...item, isClicked: !item.isClicked };
                               }
                             });
 
                             setPlaces(newPlaces);
-                            setLiked(!liked);
+                            // api to send the place to databae
 
-                            const response = await fetch('/api/favorites', {
-                              method: 'POST',
-                              headers: {
-                                'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({
-                                attraction: place.name,
-                                address: place.address || null,
-                                website: place.website || null,
-                                phone: place.phone || null,
-                                userId: props.user.id,
-                              }),
-                            });
+                            if (!place.isClicked) {
+                              const response = await fetch('/api/favorites', {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                  attraction: place.name,
+                                  address: place.address || null,
+                                  website: place.website || null,
+                                  phone: place.phone || null,
+                                  userId: props.user.id,
+                                }),
+                              });
 
-                            const data = await response.json();
-
-                            if (data.error) {
-                              setError(data.error);
-                              return error;
+                              const data = await response.json();
+                              if (data.error) {
+                                setErrormsg(data.error);
+                                return errormsg;
+                              }
+                            } else {
+                              const res = await fetch(
+                                `/api/favorites/${place.name}`,
+                                {
+                                  method: 'DELETE',
+                                },
+                              );
+                              const data = await res.json();
+                              console.log('jsondata', data);
+                              if (data.error) {
+                                setErrormsg(data.error);
+                                return errormsg;
+                              }
                             }
-
-                            // !place.isClicked &&
-                            //   alert(
-                            //     `Yes! You have successfully added ${place.name} to your favorites!`,
-                            //   );
-
-                            // if (!liked) {
-                            //   const res = await fetch(
-                            //     `/api/favorites/${place.id}`,
-                            //     {
-                            //       method: 'DELETE',
-                            //     },
-                            //   );
-
-                            //   const data = await res.json();
-                            // }
                           }}
                         >
                           {place.isClicked ? (
-                            // && liked
                             <FavoriteIcon color="error" />
                           ) : (
                             <FavoriteBorderOutlinedIcon />
@@ -245,7 +240,7 @@ export default function ListingAttractions(props) {
                       </Typography>
                     </Box>
 
-                    {place?.address && (
+                    {place.address && (
                       <Typography
                         gutterBottom
                         variant="subtitle2"
@@ -256,7 +251,7 @@ export default function ListingAttractions(props) {
                         {place.address}
                       </Typography>
                     )}
-                    {place?.phone && (
+                    {place.phone && (
                       <Typography
                         gutterBottom
                         variant="subtitle2"

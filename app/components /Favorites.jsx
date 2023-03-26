@@ -17,67 +17,65 @@ export default function Favorites(props) {
         <div className={styles.divFlex}>
           {props.favorites.map((favorite) => (
             <Grid key={`favorite-${favorite.attraction}`} item xs={12} md={6}>
-              {/* {!favorite?.address &
-                !favorite?.phone &
-                (!favorite?.website === 1)}{' '}
+              {!favorite?.address && !favorite?.phone && !favorite?.website}{' '}
               <></>:
-              { */}
-              <Card elevation={6} className={styles.card}>
-                <div className={styles.cardContent}>
-                  <h2 className={styles.attraction}>
-                    {' '}
-                    {/* <AttractionsOutlinedIcon /> */}
-                    {favorite.attraction}
-                  </h2>
-
-                  {favorite?.address && (
-                    <p className={styles.address}>
-                      <LocationOnIcon />
-                      {favorite.address}
-                    </p>
-                  )}
-
-                  {favorite?.phone && (
-                    <p className={styles.phone}>
+              {
+                <Card elevation={6} className={styles.card}>
+                  <div className={styles.cardContent}>
+                    <h2 className={styles.attraction}>
                       {' '}
-                      <PhoneIcon />
-                      {favorite.phone}
-                    </p>
-                  )}
+                      {/* <AttractionsOutlinedIcon /> */}
+                      {favorite.attraction}
+                    </h2>
 
-                  {favorite?.website && (
-                    <a className={styles.website} href={favorite.website}>
-                      <LanguageOutlinedIcon />
+                    {favorite?.address && (
+                      <p className={styles.address}>
+                        <LocationOnIcon />
+                        {favorite.address}
+                      </p>
+                    )}
 
-                      {favorite.website}
-                    </a>
-                  )}
-                  <button
-                    className={styles.delete}
-                    onClick={async () => {
-                      // send api request to delete favorite from database
-                      const response = await fetch(
-                        `/api/favorites/${favorite.id}`,
-                        {
-                          method: 'DELETE',
-                        },
-                      );
+                    {favorite?.phone && (
+                      <p className={styles.phone}>
+                        {' '}
+                        <PhoneIcon />
+                        {favorite.phone}
+                      </p>
+                    )}
 
-                      const data = await response.json();
+                    {favorite?.website && (
+                      <a className={styles.website} href={favorite.website}>
+                        <LanguageOutlinedIcon />
 
-                      if (data.error) {
-                        console.error(data.error);
-                        // return error;
-                      }
-                      // console.log('data', data);
-                      router.refresh();
-                    }}
-                  >
-                    <DeleteForeverRoundedIcon size="large" />
-                  </button>
-                </div>
-              </Card>
-              {/* } */}
+                        {favorite.website}
+                      </a>
+                    )}
+                    <button
+                      className={styles.delete}
+                      onClick={async () => {
+                        // send api request to delete favorite from database
+                        const response = await fetch(
+                          `/api/favorites/${favorite.id}`,
+                          {
+                            method: 'DELETE',
+                          },
+                        );
+
+                        const data = await response.json();
+
+                        if (data.error) {
+                          console.error(data.error);
+                          // return error;
+                        }
+                        // console.log('data', data);
+                        router.refresh();
+                      }}
+                    >
+                      <DeleteForeverRoundedIcon size="large" />
+                    </button>
+                  </div>
+                </Card>
+              }
             </Grid>
           ))}
         </div>
