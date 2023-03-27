@@ -32,7 +32,7 @@ export default function ListingAttractions(props) {
   const [errormsg, setErrormsg] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
 
-  setFavorites(props.favorites);
+  // setFavorites(props.favorites);
 
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -81,7 +81,6 @@ export default function ListingAttractions(props) {
         return { ...place, isClicked: false };
       });
 
-      console.log('placesWithClicks', placesWithClicks);
       setPlaces(placesWithClicks);
     }
 
