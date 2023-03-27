@@ -81,6 +81,7 @@ export default function ListingAttractions(props) {
         return { ...place, isClicked: false };
       });
 
+      console.log('placesWithClicks', placesWithClicks);
       setPlaces(placesWithClicks);
     }
 

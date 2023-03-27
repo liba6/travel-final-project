@@ -13,13 +13,13 @@ export default function AddRestaurants() {
         <h1 className={styles.h1}>WANDERLUST</h1>
       </div>
       <div>
-        <button href="/login" className={styles.btn}>
+        <a href="/login" className={styles.btn}>
           <span>Start my Adventure</span>
           <span>
             {' '}
             <img src="/hand.png" alt="hand icon" className={styles.icon} />
           </span>
-        </button>
+        </a>
       </div>
       <Image
         className={styles.img}
