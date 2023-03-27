@@ -18,6 +18,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import getPlacesData from '../../../util/places';
@@ -34,6 +35,8 @@ export default function ListingAttractions(props) {
 
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
+
+  const router = useRouter();
 
   const handleSelect = (value) => {
     setSelection(value);
@@ -89,6 +92,7 @@ export default function ListingAttractions(props) {
   }, [coords, favorites]);
 
   return (
+    // router.refresh()
     <div>
       <CssBaseline />
       <script
@@ -215,7 +219,7 @@ export default function ListingAttractions(props) {
                               }
                             } else {
                               const res = await fetch(
-                                `/api/favorites/${place.name}`,
+                                `/api/delete/${place.name}`,
                                 {
                                   method: 'DELETE',
                                 },

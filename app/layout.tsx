@@ -44,23 +44,20 @@ export default async function RootLayout(props: Props) {
           </Link>
           <div className={styles.nav}>
             <Link className={styles.li} href="/attractions">
-              <span className={styles.link}>Attractions</span>
+              <span>Attractions</span>
             </Link>
 
-            <Link className={styles.link} href="/login">
+            <Link href="/login">
               <span className={styles.li}>Login</span>
             </Link>
             {user && (
-              <Link
-                className={styles.link}
-                href={`/favorites/${user.username}`}
-              >
+              <Link href={`/favorites/${user.username}`}>
                 <span className={styles.li}>
                   {user.username + ' '}Favorites
                 </span>
               </Link>
             )}
-            <Link className={styles.link} href="/logout" prefetch={false}>
+            <Link href="/logout" prefetch={false}>
               <span className={styles.li}>Logout</span>
             </Link>
           </div>
