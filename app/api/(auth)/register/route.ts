@@ -73,6 +73,7 @@ export async function POST(
   // 5. create a session (in the next chapter)
   // - create the token
   const token = crypto.randomBytes(80).toString('base64');
+  // const csrfSecret = createCsrfSecret();
 
   // - create the session
   const session = await createSession(

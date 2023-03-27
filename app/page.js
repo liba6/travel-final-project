@@ -1,6 +1,4 @@
-import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -11,18 +9,17 @@ export const metadata = {
 export default function AddRestaurants() {
   return (
     <div>
-      <Head>
-        {' '}
-        <link
-          href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900"
-          rel="stylesheet"
-        />
-      </Head>
-      <div>
+      <div className={styles.pagediv}>
         <h1 className={styles.h1}>WANDERLUST</h1>
-        <Link href="/login" className={styles.btn}>
-          Start my Adventure
-        </Link>
+      </div>
+      <div>
+        <button href="/login" className={styles.btn}>
+          <span>Start my Adventure</span>
+          <span>
+            {' '}
+            <img src="/hand.png" alt="hand icon" className={styles.icon} />
+          </span>
+        </button>
       </div>
       <Image
         className={styles.img}

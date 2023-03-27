@@ -4,23 +4,32 @@ import { sql } from './connect';
 type Session = {
   id: number;
   token: string;
-  // csrfSecret:string;
+  // csrfSecret: string;
 };
 
-export const createSession = cache(async (token: string, userId: number) => {
-  const [session] = await sql<{ id: number; token: string }[]>`
+export const createSession = cache(
+  async (
+    token: string,
+    userId: number,
+    // csrfSecret: string
+  ) => {
+    const [session] = await sql<{ id: number; token: string }[]>`
           INSERT INTO sessions
             (token, user_id)
+            -- // csrf_secret
+
           VALUES
             (${token}, ${userId})
+            -- // {csrfSecret}
           RETURNING
           id,
           token
              `;
-  await deleteExpiredSessions();
+    await deleteExpiredSessions();
 
-  return session;
-});
+    return session;
+  },
+);
 
 export const deleteExpiredSessions = cache(async () => {
   await sql`
@@ -50,7 +59,6 @@ export const getValidSessionByToken = cache(async (token: string) => {
     SELECT
       sessions.id,
       sessions.token
-      --,
       -- sessions.csrf_secret
      FROM
       sessions

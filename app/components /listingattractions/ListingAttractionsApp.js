@@ -18,7 +18,6 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import getPlacesData from '../../../util/places';
@@ -33,10 +32,10 @@ export default function ListingAttractions(props) {
   const [errormsg, setErrormsg] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
 
+  setFavorites(props.favorites);
+
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
-
-  const router = useRouter();
 
   const handleSelect = (value) => {
     setSelection(value);
