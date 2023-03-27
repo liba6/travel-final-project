@@ -1,25 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { deleteFavoriteByName } from '../../../../database/favorites';
+import { deletePlaceByName, Favorite } from '../../../../database/favorites';
 
-const favoriteName = (params.favoriteName);
-  if (!favoriteName) {
+export type FavoriteResponseBodyDelete =
+  | {
+      error: string;
+    }
+  | {
+      favorite: Favorite;
+    };
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Record<string, string> },
+): Promise<NextResponse<FavoriteResponseBodyDelete>> {
+  const placeName = params.deleteName;
+  if (!placeName) {
     return NextResponse.json(
       {
-        error: 'favorite name is not valid',
+        error: 'place name is not valid',
       },
       { status: 400 },
     );
   }
 
-  const singleFavorite = await deleteFavoriteByName(favoriteName);
-  console.log('singleFavorite', singleFavorite);
-  if (!singleFavorite) {
+  const singlePlace = await deletePlaceByName(placeName);
+  console.log('singleFavorite', singlePlace);
+
+  if (!singlePlace) {
     return NextResponse.json(
       {
-        error: 'Favorite not found',
+        error: 'Place not found',
       },
       { status: 404 },
     );
   }
-  return NextResponse.json({ favorite: singleFavorite });
+
+  return NextResponse.json({ favorite: singlePlace });
 }

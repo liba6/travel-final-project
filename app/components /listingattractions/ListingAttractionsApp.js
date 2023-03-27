@@ -92,7 +92,6 @@ export default function ListingAttractions(props) {
   }, [coords, favorites]);
 
   return (
-    // router.refresh()
     <div>
       <CssBaseline />
       <script
