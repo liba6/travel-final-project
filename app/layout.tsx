@@ -42,28 +42,28 @@ export default async function RootLayout(props: Props) {
               className={styles.logo}
             />
           </Link>
-          <ul className={styles.nav}>
-            <Link href="/attractions">
-              <li className={styles.li}>Attractions</li>
+          <div className={styles.nav}>
+            <Link className={styles.li} href="/attractions">
+              <span className={styles.link}>Attractions</span>
             </Link>
-            {/* <Link href="/register">
-      <li className={styles.li}>Register</li>
-      </Link> */}
-            <Link href="/login">
-              <li className={styles.li}>Login</li>
+
+            <Link className={styles.link} href="/login">
+              <span className={styles.li}>Login</span>
             </Link>
             {user && (
-              <Link href={`/favorites/${user.username}`}>
-                <li className={styles.li}>
+              <Link
+                className={styles.link}
+                href={`/favorites/${user.username}`}
+              >
+                <span className={styles.li}>
                   {user.username + ' '}Favorites
-                  {/* <FavoriteIcon color="error" /> */}
-                </li>
+                </span>
               </Link>
             )}
-            <Link href="/logout" prefetch={false}>
-              <li className={styles.li}>Logout</li>
+            <Link className={styles.link} href="/logout" prefetch={false}>
+              <span className={styles.li}>Logout</span>
             </Link>
-          </ul>
+          </div>
         </nav>
 
         {props.children}

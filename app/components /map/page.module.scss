@@ -1,4 +1,8 @@
 .mapContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 95%;
   width: 90%;
   margin-top: -25px;

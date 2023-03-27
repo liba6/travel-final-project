@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './page.module.scss';
@@ -10,6 +11,13 @@ export const metadata = {
 export default function AddRestaurants() {
   return (
     <div>
+      <Head>
+        {' '}
+        <link
+          href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900"
+          rel="stylesheet"
+        />
+      </Head>
       <div>
         <h1 className={styles.h1}>WANDERLUST</h1>
         <Link href="/login" className={styles.btn}>

@@ -19,6 +19,8 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Record<string, string> },
 ): Promise<NextResponse<FavoriteResponseBodyDelete>> {
+
+
   const favoriteId = Number(params.favoriteId);
   if (!favoriteId) {
     return NextResponse.json(
@@ -41,7 +43,7 @@ export async function DELETE(
   }
   return NextResponse.json({ favorite: singleFavorite });
 }
-  const favoriteName = params.placeName;
+  const favoriteName = (params.favoriteName);
   if (!favoriteName) {
     return NextResponse.json(
       {

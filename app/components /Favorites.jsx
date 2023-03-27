@@ -17,9 +17,7 @@ export default function Favorites(props) {
         <div className={styles.divFlex}>
           {props.favorites.map((favorite) => (
             <Grid key={`favorite-${favorite.attraction}`} item xs={12} md={6}>
-              {!favorite?.address && !favorite?.phone && !favorite?.website}{' '}
-              <></>:
-              {
+              {favorite.address || favorite.phone || favorite.website ? (
                 <Card elevation={6} className={styles.card}>
                   <div className={styles.cardContent}>
                     <h2 className={styles.attraction}>
@@ -75,7 +73,7 @@ export default function Favorites(props) {
                     </button>
                   </div>
                 </Card>
-              }
+              ) : null}
             </Grid>
           ))}
         </div>

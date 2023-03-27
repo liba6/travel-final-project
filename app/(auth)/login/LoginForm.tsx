@@ -36,7 +36,8 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
           return;
         }
 
-        router.replace(`/favorites/${data.user.username}`);
+        router.replace(`/favorites/${data.user.username}
+        `);
         router.refresh();
       }}
     >

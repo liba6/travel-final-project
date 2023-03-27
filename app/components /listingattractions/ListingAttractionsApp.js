@@ -133,7 +133,10 @@ export default function ListingAttractions(props) {
                         : 'suggestion-item';
                       // inline style for demonstration purpose
                       const style = suggestion.active
-                        ? { backgroundColor: '#d2bd9c', cursor: 'pointer' }
+                        ? {
+                            backgroundColor: '#b4c6e7',
+                            cursor: 'pointer',
+                          }
                         : { backgroundColor: '#9cb1d2', cursor: 'pointer' };
                       return (
                         <div
