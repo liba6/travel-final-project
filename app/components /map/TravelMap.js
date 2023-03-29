@@ -29,6 +29,7 @@ export default function TravelMap({ coords, places }) {
     lng: coords[0],
   };
 
+  const temp = Math.round(weatherIcon.current.temp - 273.15);
   const placesRef = useRef(null);
   const myKey = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -111,6 +112,7 @@ export default function TravelMap({ coords, places }) {
             src={`http://openweathermap.org/img/w/${weatherIcon.current.weather[0].icon}.png`}
             alt="weather icon"
           />
+          <p className={styles.weatherTemp}>{temp}*C</p>
         </div>
       </GoogleMap>
     </div>
