@@ -29,8 +29,6 @@ export default function TravelMap({ coords, places }) {
     lng: coords[0],
   };
 
-  const temp = Math.round(weatherIcon.current.temp - 273.15);
-  const placesRef = useRef(null);
   const myKey = process.env.NEXT_PUBLIC_API_KEY;
 
   const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords[1]}&lon=${coords[0]}&exclude=hourly,daily&appid=${myKey}`;
@@ -52,6 +50,9 @@ export default function TravelMap({ coords, places }) {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     libraries: mapLibraries,
   });
+
+  const temp = Math.round(weatherIcon.current.temp - 273.15);
+  // const placesRef = useRef(null);
 
   return isLoaded ? (
     <div className={styles.mapContainer}>

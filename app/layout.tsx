@@ -5,8 +5,9 @@ import { getUserBySessionToken } from '../database/users';
 import styles from './layout.module.scss';
 
 export const metadata = {
-  title: 'Travel the World',
-  description: 'An app that makes choosing attractions when touring easy.',
+  title: 'Wanderlust: Discover the world, one attraction at a time.',
+  description:
+    'The ultimate travel attraction app offers recommendations on popular tourist spots, cultural events and local attractions based on your location. With current phone number, address and website links,this app makes planning and experiencing your next adventure effortless and unforgettable.',
   icons: {
     shortcut: '/favicon.ico',
   },
