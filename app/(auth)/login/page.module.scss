@@ -5,10 +5,9 @@
 
 .body {
   background-image: url('/boats.jpeg');
-
   height: 3000px;
   width: 2090px;
-  // margin-top: -90px;
+  margin-top: -90px;
   background-repeat: no-repeat;
 }
 
@@ -80,4 +79,19 @@
     flex-wrap: wrap;
     justify-content: space-between;
   }
+}
+
+.error {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  margin-top: 180px;
+  padding: 20px;
+  z-index: 1;
+  margin-left: 630px;
 }

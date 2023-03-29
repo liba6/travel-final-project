@@ -43,19 +43,20 @@ export default async function RootLayout(props: Props) {
             />
           </Link>
           <div className={styles.nav}>
-            <Link className={styles.li} href="/attractions">
+            <a className={styles.li} href="/attractions">
               <span>Attractions</span>
-            </Link>
-
-            <Link href="/login">
-              <span className={styles.li}>Login</span>
-            </Link>
+            </a>
+            {!user && (
+              <Link href="/login">
+                <span className={styles.li}>Login</span>
+              </Link>
+            )}
             {user && (
-              <Link href={`/favorites/${user.username}`}>
+              <a href={`/favorites/${user.username}`}>
                 <span className={styles.li}>
                   {user.username + ' '}Favorites
                 </span>
-              </Link>
+              </a>
             )}
             <Link href="/logout" prefetch={false}>
               <span className={styles.li}>Logout</span>
@@ -64,8 +65,8 @@ export default async function RootLayout(props: Props) {
         </nav>
 
         {props.children}
+        <footer className={styles.footer}>Liba Shapiro MSc 2023</footer>
       </body>
-      {/* <footer>Designed by Liba Shapiro MSc</footer> */}
     </html>
   );
 }

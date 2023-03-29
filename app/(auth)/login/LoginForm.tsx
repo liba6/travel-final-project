@@ -36,13 +36,15 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
           return;
         }
 
-        router.replace(`/favorites/${data.user.username}
+        router.replace(`/attractions
         `);
         router.refresh();
       }}
     >
       {errors.map((error) => (
-        <div key={`error-${error.message}`}>Error: {error.message}</div>
+        <div key={`error-${error.message}`} className={styles.error}>
+          Error: {error.message}
+        </div>
       ))}
       <div className={styles.body}>
         <div className={styles.container}>

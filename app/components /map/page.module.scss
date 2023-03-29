@@ -9,15 +9,6 @@
   margin-left: 23px;
 }
 
-.markerContainer {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-.markerContainer:hover {
-  z-index: 2;
-}
-
 .paper {
   padding: 10px;
   display: flex;
@@ -26,6 +17,16 @@
   width: 100px;
 }
 
-.pointer {
-  cursor: pointer;
+.placeimg {
+  width: 150px;
+  height: 150px;
+}
+
+.weatherIcon {
+  height: 70px;
+  // width: 100px;
+  position: absolute;
+  z-index: 3;
+  margin-left: 400px;
+  margin-top: 100px;
 }

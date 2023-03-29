@@ -17,7 +17,7 @@ export default function AddRestaurants() {
           <span>Start my Adventure</span>
           <span>
             {' '}
-            <img src="/hand.png" alt="hand icon" className={styles.icon} />
+            {/* <img src="/hand.png" alt="hand icon" className={styles.icon} /> */}
           </span>
         </a>
       </div>

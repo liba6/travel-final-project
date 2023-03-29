@@ -41,7 +41,9 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
       }}
     >
       {errors.map((error) => (
-        <div key={`error - ${error.message}`}>Error:{error.message}</div>
+        <div key={`error - ${error.message}`} className={styles.error}>
+          Error:{error.message}
+        </div>
       ))}
 
       <div className={styles.body}>

@@ -32,7 +32,7 @@ export default function ListingAttractions(props) {
   const [errormsg, setErrormsg] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
 
-  // setFavorites(props.favorites);
+  console.log(setFavorites);
 
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -142,7 +142,7 @@ export default function ListingAttractions(props) {
                         : { backgroundColor: '#9cb1d2', cursor: 'pointer' };
                       return (
                         <div
-                          key={`suggetions-${suggestions.description}`}
+                          key={`suggestions-${suggestions.description}`}
                           {...getSuggestionItemProps(suggestion, {
                             className,
                             style,
@@ -163,7 +163,7 @@ export default function ListingAttractions(props) {
         <Grid container spacing={1} className={styles.list}>
           <div className={styles.cardContainer}>
             {places.map((place) => (
-              <Grid key={`place-${place.attraction}`} item xs={12} md={7}>
+              <Grid key={`place-${place.name}`} item xs={12} md={7}>
                 <Card elevation={6} className={styles.card}>
                   <CardMedia
                     className={styles.cardmedia}
