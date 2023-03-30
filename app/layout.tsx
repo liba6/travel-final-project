@@ -66,7 +66,9 @@ export default async function RootLayout(props: Props) {
         </nav>
 
         {props.children}
-        <footer className={styles.footer}>Liba Shapiro MSc 2023</footer>
+        <footer className={styles.footer}>
+          Designed by Liba Shapiro MSc 2023
+        </footer>
       </body>
     </html>
   );

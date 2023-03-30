@@ -7,7 +7,7 @@ import {
   Marker,
   useJsApiLoader,
 } from '@react-google-maps/api';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import styles from './page.module.scss';
 
 const containerStyle = {
@@ -20,30 +20,13 @@ const mapLibraries = ['places'];
 
 // const isLargeScreen = window.innerWidth >= 600;
 
-export default function TravelMap({ coords, places }) {
+export default function TravelMap({ coords, places, weatherIcon }) {
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [weatherIcon, setWeatherIcon] = useState('');
 
   const coordinates = {
     lat: coords[1],
     lng: coords[0],
   };
-
-  const myKey = process.env.NEXT_PUBLIC_API_KEY;
-
-  const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords[1]}&lon=${coords[0]}&exclude=hourly,daily&appid=${myKey}`;
-
-  useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setWeatherIcon(data);
-      })
-      .catch(() => alert('error'));
-  }, [url]);
-
-  // console.log('weathericon', weatherIcon.current.weather[0].icon);
-  // console.log('weather data', weatherIcon);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -51,8 +34,13 @@ export default function TravelMap({ coords, places }) {
     libraries: mapLibraries,
   });
 
-  const temp = Math.round(weatherIcon.current.temp - 273.15);
+  const temperature =
+    weatherIcon && Math.round(weatherIcon.current?.temp - 273.15);
+
   // const placesRef = useRef(null);
+  // useEffect(() => {
+  //   console.log('placesRef', placesRef.current);
+  // }, []);
 
   return isLoaded ? (
     <div className={styles.mapContainer}>
@@ -64,6 +52,7 @@ export default function TravelMap({ coords, places }) {
         margin={[50, 50, 50, 50]}
         options=""
       >
+        {/* <div ref={placesRef}> */}
         {places?.map((place) => (
           <Marker
             key={`place-${place.name}`}
@@ -73,13 +62,16 @@ export default function TravelMap({ coords, places }) {
             }}
             onClick={() => {
               setSelectedPlace(place);
-              placesRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-              });
+              // if (placesRef.current) {
+              //   placesRef.current.scrollIntoView({
+              //     behavior: 'smooth',
+              //     block: 'start',
+              //   });
+              // }
             }}
           />
         ))}
+        {/* </div> */}
         {selectedPlace && (
           <InfoWindow
             className={styles.paper}
@@ -89,6 +81,7 @@ export default function TravelMap({ coords, places }) {
             }}
             onCloseClick={() => {
               setSelectedPlace(null);
+              // console.log('placesrefclose', placesRef.current);
             }}
           >
             <div>
@@ -107,14 +100,16 @@ export default function TravelMap({ coords, places }) {
             </div>
           </InfoWindow>
         )}
-        <div>
-          <img
-            className={styles.weatherIcon}
-            src={`http://openweathermap.org/img/w/${weatherIcon.current.weather[0].icon}.png`}
-            alt="weather icon"
-          />
-          <p className={styles.weatherTemp}>{temp}*C</p>
-        </div>
+        {temperature ? (
+          <div>
+            <img
+              className={styles.weatherIcon}
+              src={`http://openweathermap.org/img/w/${weatherIcon.current?.weather[0].icon}.png`}
+              alt="weather icon"
+            />
+            <p className={styles.weatherTemp}>{temperature}*C</p>
+          </div>
+        ) : null}
       </GoogleMap>
     </div>
   ) : (
