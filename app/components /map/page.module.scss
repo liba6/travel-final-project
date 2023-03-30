@@ -18,8 +18,8 @@
 }
 
 .placeimg {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 .weatherIcon {
@@ -27,7 +27,7 @@
   // width: 100px;
   position: absolute;
   z-index: 3;
-  margin-left: 650px;
+  margin-left: 600px;
   margin-top: 20px;
   background-color: #9cb1d2;
   border-radius: 12px;
@@ -38,7 +38,11 @@
   // width: 100px;
   position: absolute;
   z-index: 3;
-  margin-left: 670px;
+  margin-left: 620px;
   margin-top: 71px;
   border-radius: 12px;
+}
+
+.popup {
+  width: 100px;
 }

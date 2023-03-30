@@ -23,8 +23,6 @@ export default async function Attractions() {
 
   return (
     <div>
-      {/* <Header /> */}
-      {/* <TravelMap/> */}
       <ListingAttractionsApp user={user} favorites={favorites} />
     </div>
   );

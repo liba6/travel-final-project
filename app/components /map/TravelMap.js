@@ -16,11 +16,17 @@ const containerStyle = {
   borderRadius: '10px',
 };
 
-const mapLibraries = ['places'];
+// const mapLibraries = ['places'];
 
 // const isLargeScreen = window.innerWidth >= 600;
 
-export default function TravelMap({ coords, places, weatherIcon }) {
+export default function TravelMap({
+  coords,
+  places,
+  weatherIcon,
+  // setChildClicked,
+  // handleClick,
+}) {
   const [selectedPlace, setSelectedPlace] = useState(null);
 
   const coordinates = {
@@ -31,7 +37,7 @@ export default function TravelMap({ coords, places, weatherIcon }) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    libraries: mapLibraries,
+    libraries: ['places'],
   });
 
   const temperature =
@@ -60,14 +66,10 @@ export default function TravelMap({ coords, places, weatherIcon }) {
               lat: Number(place.latitude),
               lng: Number(place.longitude),
             }}
+            // onChildClick={(child) => setChildClicked(child)}
             onClick={() => {
               setSelectedPlace(place);
-              // if (placesRef.current) {
-              //   placesRef.current.scrollIntoView({
-              //     behavior: 'smooth',
-              //     block: 'start',
-              //   });
-              // }
+              // handleClick();
             }}
           />
         ))}
@@ -84,7 +86,7 @@ export default function TravelMap({ coords, places, weatherIcon }) {
               // console.log('placesrefclose', placesRef.current);
             }}
           >
-            <div>
+            <div className={styles.popup}>
               <Typography variant="subtitle2" gutterBottom>
                 {selectedPlace.name}
               </Typography>

@@ -18,7 +18,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import getPlacesData from '../../../util/places';
 import TravelMap from '../map/TravelMap';
@@ -32,7 +32,7 @@ export default function ListingAttractions(props) {
   const [errormsg, setErrormsg] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
   const [weatherIcon, setWeatherIcon] = useState('');
-
+  // const [childClicked, setChildClicked] = useState('');
   console.log(setFavorites);
 
   const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -41,6 +41,11 @@ export default function ListingAttractions(props) {
 
   const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords[1]}&lon=${coords[0]}&exclude=hourly,daily&appid=${myWeatherKey}`;
 
+  // const myRef = useRef(null);
+
+  // const handleClick = () => {
+  //   myRef.current.scrollIntoView({ behavior: 'smooth' });
+  // };
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())
@@ -52,9 +57,6 @@ export default function ListingAttractions(props) {
       })
       .catch(() => alert('error'));
   }, [url]);
-
-  console.log('weathericon', weatherIcon.current);
-  console.log('weather data', weatherIcon);
 
   const handleSelect = (value) => {
     setSelection(value);
@@ -100,7 +102,7 @@ export default function ListingAttractions(props) {
         return { ...place, isClicked: false };
       });
 
-      console.log('placesWithClicks', placesWithClicks);
+      // console.log('placesWithClicks', placesWithClicks);
       setPlaces(placesWithClicks);
     }
 
@@ -316,6 +318,8 @@ export default function ListingAttractions(props) {
               coords={coords}
               places={places}
               weatherIcon={weatherIcon}
+              // setChildClicked={setChildClicked}
+              // handleClick={handleClick}
             />
           </Grid>
         </Grid>
