@@ -62,6 +62,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
             Password:
             <input
               value={password}
+              type="password"
               onChange={(event) => setPassword(event.currentTarget.value)}
               className={styles.input}
             />
