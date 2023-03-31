@@ -29,10 +29,15 @@ export default async function RootLayout(props: Props) {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
+  const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   return (
     <html lang="en">
       <head />
       <body className={styles.body}>
+        <script
+          src={`https://maps.googleapis.com/maps/api/js?key=${myKey}&libraries=places`}
+        />
         <nav>
           <Link href="/">
             <Image

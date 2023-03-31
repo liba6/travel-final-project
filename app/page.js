@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -13,13 +14,13 @@ export default function AddRestaurants() {
         <h1 className={styles.h1}>WANDERLUST</h1>
       </div>
       <div>
-        <a href="/login" className={styles.btn}>
+        <Link href="/attractions" className={styles.btn}>
           <span>Start my Adventure</span>
           <span>
             {' '}
             {/* <img src="/hand.png" alt="hand icon" className={styles.icon} /> */}
           </span>
-        </a>
+        </Link>
       </div>
       <Image
         className={styles.img}

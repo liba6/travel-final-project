@@ -24,8 +24,7 @@ export default function TravelMap({
   coords,
   places,
   weatherIcon,
-  // setChildClicked,
-  // handleClick,
+  setChildClicked,
 }) {
   const [selectedPlace, setSelectedPlace] = useState(null);
 
@@ -66,10 +65,9 @@ export default function TravelMap({
               lat: Number(place.latitude),
               lng: Number(place.longitude),
             }}
-            // onChildClick={(child) => setChildClicked(child)}
+            onChildClick={(child) => setChildClicked(child)}
             onClick={() => {
               setSelectedPlace(place);
-              // handleClick();
             }}
           />
         ))}

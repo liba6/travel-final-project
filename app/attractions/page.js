@@ -11,6 +11,8 @@ export default async function Attractions() {
   // 2. validate that session
   // 3. get the user profile matching the session
 
+  // const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   const user = !sessionToken?.value
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
@@ -23,6 +25,9 @@ export default async function Attractions() {
 
   return (
     <div>
+      {/* <script
+        src={`https://maps.googleapis.com/maps/api/js?key=${myKey}&libraries=places`}
+      /> */}
       <ListingAttractionsApp user={user} favorites={favorites} />
     </div>
   );
