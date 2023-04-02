@@ -37,7 +37,7 @@ export default function ListingAttractions(props) {
 
   // const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
-  const myWeatherKey = process.env.NEXT_PUBLIC_API_KEY;
+  const myWeatherKey = process.env.REACT_APP_API_KEY;
 
   const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords[1]}&lon=${coords[0]}&exclude=hourly,daily&appid=${myWeatherKey}`;
 
