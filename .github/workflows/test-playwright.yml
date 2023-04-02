@@ -11,6 +11,11 @@ jobs:
       PGDATABASE: travel_final_project
       PGUSERNAME: travel_final_project
       PGPASSWORD: travel_final_project
+      NEXT_PUBLIC_MAPBOX_API_KEY: ${{ Secrets.NEXT_PUBLIC_MAPBOX_API_KEY }}
+      REACT_APP_API_KEY: ${{ Secrets.REACT_APP_API_KEY }}
+      NEXT_PUBLIC_RAPID_API_TRAVEL_API_KEY: $ {{ Secrets.NEXT_PUBLIC_RAPID_API_TRAVEL_API_KEY}}
+      NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ Secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}}
+
     steps:
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
@@ -18,10 +23,10 @@ jobs:
           pg_isready
       - name: Create database user
         run: |
-          sudo -u postgres psql --command="CREATE USER next_js_example_winter_2023 PASSWORD 'next_js_example_winter_2023'" --command="\du"
+          sudo -u postgres psql --command="CREATE USER travel_final_project PASSWORD 'travel_final_project'" --command="\du"
       - name: Create database and allow user
         run: |
-          sudo -u postgres createdb --owner=next_js_example_winter_2023 next_js_example_winter_2023
+          sudo -u postgres createdb --owner=travel_final_project travel_final_project
       - uses: actions/checkout@v3
       # Use the official setup-node action (sets up Node.js):
       # https://github.com/actions/setup-node
