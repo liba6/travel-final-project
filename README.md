@@ -2,9 +2,9 @@ WANDERLUST - final project
 
 Wanderlust is a Fullstack web app that allows users to easily find and save attractions all over the world.
 
-Visit the live website of WANDERLUST [here] (https://wanderlust.fly.dev/)
+Visit WANDERLUST (https://wanderlust.fly.dev/)
 
-Architecture:
+Architecture: </br>
 Frontend: Next.js 13 as the frontend framework to build our web app. </br>
 Backend: Node.js and Express.js to build the server-side of our app. </br>
 Database: PostgreSQL as the database management system. </br>
@@ -49,20 +49,20 @@ Setup Instructions: </br>
 - Run the migrations with yarn migrate up
 - Finally, start the server by running yarn dev
 
-Instructions for the Deployment </br>
+Instructions for the Deployment: </br>
 
 - Sign Up with Fly.io. Open the Fly.io Tokens page, generate a new Fly.io access token named Github Actions Deploy Token and copy it.
   Attention: Token will only be shown once!
 
 - In the Github repo under Settings -> Secrets -> Actions, click New Repository secret and paste in the token in the token field and name the Token FLY_API_TOKEN.
 
-\_ Once this step is done, on the command line in your terminal, authenticate with Fly.io so you can run commands in the command line: flyctl auth login. Login in the browser Window and then return back to the terminal. If this was successfull, a success message appears in the terminal.
+- Once this step is done, on the command line in your terminal, authenticate with Fly.io so you can run commands in the command line: flyctl auth login. Login in the browser Window and then return back to the terminal. If this was successfull, a success message appears in the terminal.
 
 - Now create an app, specifying the name using only lowercase letters and dashes: `flyctl apps create --name ``
 
 - Add the database credentials using Fly.io secrets: </br>
 
-flyctl secrets set PGHOST=localhost PGDATABASE=upleveled$(openssl rand -hex 16) PGUSERNAME=upleveled$(openssl rand -hex 16) PGPASSWORD=$(openssl rand -base64 32)
-Next, create a 1GB volume for the PostgreSQL database in the Frankfurt Region: `flyctl volumes create postgres --size 1 --region fra``</br>
+  flyctl secrets set PGHOST=localhost PGDATABASE=upleveled$(openssl rand -hex 16) PGUSERNAME=upleveled$(openssl rand -hex 16) PGPASSWORD=$(openssl rand -base64 32)
+  Next, create a 1GB volume for the PostgreSQL database in the Frankfurt Region: `flyctl volumes create postgres --size 1 --region fra``</br>
 
 - And finally, deploy the first version of the app: flyctl deploy
