@@ -138,3 +138,59 @@
   // background: red;
   border: none;
 }
+
+@media only screen and (max-width: 425px) {
+  .appbar {
+    width: 95%;
+  }
+  .input {
+    width: 95%;
+  }
+  cardContainer {
+    max-width: 99%;
+  }
+  .travelmap {
+    max-width: 99%;
+    margin-left: -5%;
+    margin-right: 5%;
+    max-height: 85vh;
+    margin-top: 5%;
+  }
+
+  .card {
+    max-width: 119%;
+  }
+}
+
+// unfinished
+@media only screen and (max-width: 375px) {
+  .appbar {
+    width: 112%;
+  }
+
+  .input {
+    width: 95%;
+  }
+  .cardContainer {
+    margin-right: -10%;
+  }
+  .card {
+    max-width: 95%;
+  }
+}
+// unfinished
+@media only screen and (max-width: 320px) {
+  .appbar {
+    width: 150%;
+    margin-left: 5%;
+  }
+
+  .input {
+    width: 97%;
+  }
+  .cardContainer {
+    max-width: 90%;
+  }
+  .card {
+  }
+}

@@ -16,16 +16,12 @@ export default function AddRestaurants() {
       <div>
         <Link href="/attractions" className={styles.btn}>
           <span>Start my Adventure</span>
-          <span>
-            {' '}
-            {/* <img src="/hand.png" alt="hand icon" className={styles.icon} /> */}
-          </span>
         </Link>
       </div>
       <Image
         className={styles.img}
         src="/attractions.jpeg"
-        alt="globe image"
+        alt="cities image"
         width={1530}
         height={1010}
         quality={100}

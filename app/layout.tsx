@@ -64,9 +64,11 @@ export default async function RootLayout(props: Props) {
                 </span>
               </a>
             )}
-            <Link href="/logout" prefetch={false}>
-              <span className={styles.li}>Logout</span>
-            </Link>
+            {user && (
+              <Link href="/logout" prefetch={false}>
+                <span className={styles.li}>Logout</span>
+              </Link>
+            )}
           </div>
         </nav>
 

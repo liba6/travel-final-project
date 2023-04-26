@@ -2,6 +2,8 @@
   margin-top: -280px;
   z-index: -5;
   position: absolute;
+  height: 102vh;
+  width: 100%;
 }
 
 .h1 {
@@ -13,7 +15,10 @@
   align-items: center;
   display: flex;
   margin-left: 340px;
+  // margin-left: 5%;
   color: #333333;
+  // margin-right: 340px;
+  // margin-right: 5%;
 }
 
 .btn {
@@ -32,6 +37,8 @@
   transition: all 0.3s ease;
   position: absolute;
   margin-left: 563px;
+  // margin-left: auto;
+  // margin-right: auto;
   top: 360px;
   text-decoration: none;
   width: 320px;
@@ -45,13 +52,104 @@
   transform: translateY(-2px);
 }
 
-.icon {
-  height: 20px;
-  width: 20px;
-  padding-left: 10px;
-  margin-bottom: -5px;
-}
-
 .pagediv {
   background: rgba(255, 255, 255, 0.52);
 }
+
+// // for smartphones in portrait mode
+@media only screen and (max-width: 390px) {
+  .img {
+    //     margin-top: -120px;
+    //     width: 1200px;
+    //   }
+    //   .h1 {
+    //     font-size: 36px;
+    //     margin-bottom: 10px;
+    //   }
+
+    //   .btn {
+    //     margin-left: 20px;
+    //     top: 150px;
+    //     width: 280px;
+    //     font-size: 1rem;
+    //   }
+
+    //   .pagediv {
+    //     margin-right: -840px;
+  }
+}
+
+// // tablets in portrait mode
+// @media only screen and (min-width: 768px) {
+//   .img {
+//     margin-top: -200px;
+//     max-width: 100% vw;
+//   }
+
+//   .h1 {
+//     font-size: 60px;
+//     margin-right: 0;
+//     margin-left: 0;
+//   }
+
+//   .btn {
+//     margin-left: 50px;
+//     top: 230px;
+//     width: 240px;
+//   }
+//   .pagediv {
+//     margin-right: -760px;
+//   }
+// }
+
+// // tablets in landscape mode
+// @media only screen and (min-width: 1024px) {
+//   .img {
+//     margin-top: -200px;
+//   }
+//   .h1 {
+//     font-size: 80px;
+//   }
+//   .btn {
+//     margin-left: 220px;
+//     top: 420px;
+//     width: 360px;
+//   }
+//   .pagediv {
+//     margin-right: -505px;
+//   }
+// }
+
+// // laptop screens
+// @media only screen and (min-width: 1440px) {
+//   .img {
+//     margin-top: -280px;
+//   }
+//   .h1 {
+//     font-size: 100px;
+//   }
+//   .btn {
+//     margin-left: 540px;
+//     top: 500px;
+//     width: 480px;
+//   }
+//   .pagediv {
+//     margin-right: -90px;
+//   }
+// }
+
+// // desktop screens
+// @media only screen and (min-width: 2560px) {
+//   .h1 {
+//     font-size: 120px;
+//     width: 100%vw;
+//   }
+//   .btn {
+//     margin-left: 563px;
+//     top: 500px;
+//     width: 480px;
+//   }
+//   .pagediv {
+//     margin-right: 1030px;
+//   }
+// }
