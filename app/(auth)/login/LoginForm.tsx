@@ -11,7 +11,7 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
-
+  console.log('begin');
   return (
     <form
       onSubmit={async (event) => {
@@ -21,9 +21,9 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
           method: 'POST',
           body: JSON.stringify({ username, password }),
         });
-
+        console.log('response', response);
         const data: LoginResponseBodyPost = await response.json();
-
+        console.log('data', response.json());
         if ('errors' in data) {
           setErrors(data.errors);
           return;
