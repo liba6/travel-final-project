@@ -17,7 +17,7 @@ export default async function Attractions() {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
-  if there is no user
+  // if there is no user
 
   if (user === undefined) {
     redirect('/login');
