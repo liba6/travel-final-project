@@ -17,11 +17,11 @@ export default async function Attractions() {
     ? undefined
     : await getUserBySessionToken(sessionToken.value);
 
-  // if there is no user
+  if there is no user
 
-  // if (user === undefined) {
-  //   redirect('/login');
-  // }
+  if (user === undefined) {
+    redirect('/login');
+  }
   const favorites = await getFavoritesByUserId(user.id);
 
   return (
