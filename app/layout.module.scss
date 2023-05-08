@@ -1,16 +1,3 @@
-// .nav {
-//   display: flex;
-//   list-style: none;
-//   margin-left: 1000px;
-//   top: 0;
-//   left: 0;
-//   height: 70px;
-//   font-size: 18px;
-//   display: flex;
-//   align-items: center;
-//   padding: 0 20px;
-//   transition: color 0.3s ease;
-// }
 .nav {
   display: flex;
   list-style: none;
@@ -24,7 +11,7 @@
   left: 0;
 }
 .body {
-  background-color: #b4c6e7;
+  // background-color: #b4c6e7;
   font-family: raleway, sans-serif;
   width: 100%;
 }
@@ -43,30 +30,44 @@
 .logo {
   margin-top: -60px;
   margin-left: 30px;
-  position: absolute;
+  // position: absolute;
 }
 
 .footer {
   top: 800px;
   position: fixed;
   text-align: center;
-  // margin-left: 20%;
-  // margin-right: 20%;
+  margin-left: 20%;
+  margin-right: 20%;
   margin-left: 630px;
 }
 
+.hidden {
+  background-color: tomato;
+}
+
 // // for smartphones in portrait mode
-// @media only screen and (min-width: 320px) {
-//   .nav {
-//     font-size: 12px;
-//     margin-right: 80%;
-//   }
-//   .logo {
-//     margin-left: -30px;
-//     width: 120px;
-//     height: 120px;
-//   }
-// }
+@media only screen and (max-width: 390px) {
+  .logo {
+    margin-left: 5px;
+    margin-top: -15px;
+    width: 120px;
+    height: 120px;
+  }
+  .nav {
+    display: none;
+  }
+  .footer {
+    // position: fixed;
+    display: flex;
+    justify-content: center;
+
+    // margin-right:0
+  }
+  .body {
+    background-image: '/';
+  }
+}
 // // smartphones landscape mode
 // @media only screen and (max-width: 480px) {
 //   .nav {

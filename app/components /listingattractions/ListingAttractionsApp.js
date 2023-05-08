@@ -32,8 +32,7 @@ export default function ListingAttractions(props) {
   const [errormsg, setErrormsg] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
   const [weatherIcon, setWeatherIcon] = useState('');
-  // const [childClicked, setChildClicked] = useState('');
-  console.log(setFavorites);
+  console.log('avoidprob', setFavorites);
 
   // const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const myToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -43,9 +42,6 @@ export default function ListingAttractions(props) {
 
   const myRef = useRef(null);
 
-  // const handleClick = () => {
-  //   myRef.current.scrollIntoView({ behavior: 'smooth' });
-  // };
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())
@@ -102,8 +98,9 @@ export default function ListingAttractions(props) {
         return { ...place, isClicked: false };
       });
 
-      // console.log('placesWithClicks', placesWithClicks);
       setPlaces(placesWithClicks);
+      // console.log('placesWithClicks', placesWithClicks);
+      // console.log('placesData', placesData);
     }
 
     a().catch((error) => {
@@ -154,7 +151,6 @@ export default function ListingAttractions(props) {
                       const className = suggestion.active
                         ? 'suggestion-item--active'
                         : 'suggestion-item';
-                      // inline style for demonstration purpose
                       const style = suggestion.active
                         ? {
                             backgroundColor: '#b4c6e7',
@@ -192,7 +188,7 @@ export default function ListingAttractions(props) {
                       image={
                         place.photo
                           ? place.photo.images.large.url
-                          : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'
+                          : '/placeholder.jpg'
                       }
                       title={place.name}
                     />

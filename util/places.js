@@ -2,6 +2,7 @@ import axios from 'axios';
 
 // Commenting out to avoid maxing out my api calls :()
 export default async function getPlacesData(coords) {
+  console.log('coords', coords);
   try {
     const {
       data: { data },
@@ -14,7 +15,6 @@ export default async function getPlacesData(coords) {
         },
         headers: {
           'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_TRAVEL_API_KEY,
-
           'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
         },
       },

@@ -42,11 +42,6 @@ export default function TravelMap({
   const temperature =
     weatherIcon && Math.round(weatherIcon.current?.temp - 273.15);
 
-  // const placesRef = useRef(null);
-  // useEffect(() => {
-  //   console.log('placesRef', placesRef.current);
-  // }, []);
-
   return isLoaded ? (
     <div className={styles.mapContainer}>
       <GoogleMap
