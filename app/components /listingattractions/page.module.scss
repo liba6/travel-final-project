@@ -163,32 +163,39 @@
 }
 
 // unfinished
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 390px) {
   .appbar {
-    width: 112%;
+    width: 100%;
   }
 
   .input {
     width: 95%;
   }
+  .list {
+    width: 104%;
+  }
   .cardContainer {
-    margin-right: -10%;
+    margin-left: -35px;
   }
   .card {
-    max-width: 95%;
+    width: 95%;
+  }
+  .travelmap {
+    margin-right: 50px;
+    margin-left: -50px;
   }
 }
 // unfinished
-@media only screen and (max-width: 320px) {
-  .appbar {
-    width: 150%;
-    margin-left: 5%;
-  }
+// @media only screen and (max-width: 320px) {
+//   .appbar {
+//     width: 150%;
+//     margin-left: 5%;
+//   }
 
-  .input {
-    width: 97%;
-  }
-  .cardContainer {
-    max-width: 90%;
-  }
-}
+//   .input {
+//     width: 97%;
+//   }
+//   .cardContainer {
+//     max-width: 90%;
+//   }
+// }

@@ -62,7 +62,7 @@ export default async function RootLayout(props: Props) {
             )}
             {user && (
               <a href={`/favorites/${user.username}`}>
-                <span className={styles.li}>
+                <span className={styles.favorites}>
                   {user.username + ' '}Favorites
                 </span>
               </a>
