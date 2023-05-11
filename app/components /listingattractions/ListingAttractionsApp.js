@@ -20,7 +20,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { useEffect, useRef, useState } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import getPlacesData from '../../../util/places';
+import getPlacesData from '../../../utils/places';
 import TravelMap from '../map/TravelMap';
 import styles from './page.module.scss';
 

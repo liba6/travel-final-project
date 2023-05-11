@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { getSafeReturnToPath } from '../../../util/validation';
+import { getSafeReturnToPath } from '../../../utils/validation';
 import { LoginResponseBodyPost } from '../../api/(auth)/login/route';
 import styles from './page.module.scss';
 

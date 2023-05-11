@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSession } from '../../../../database/sessions';
 import { createUser, getUserByUsername } from '../../../../database/users';
-import { createSerializedRegisterSessionTokenCookie } from '../../../../util/cookies';
+import { createSerializedRegisterSessionTokenCookie } from '../../../../utils/cookies';
 
 // import { createCsrfSecret } from '../../../../util/csrf';
 

@@ -13,6 +13,7 @@
     "next-env.d.ts"
   ],
   "compilerOptions": {
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "strictNullChecks": true
   }
 }
