@@ -20,6 +20,12 @@ const containerStyle = {
 
 // const isLargeScreen = window.innerWidth >= 600;
 
+// type ComponentProps = {
+//   coords: string[];
+//   places: string[];
+//   weatherIcon: string;
+// };
+
 export default function TravelMap({
   coords,
   places,

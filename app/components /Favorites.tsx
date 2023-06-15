@@ -7,7 +7,22 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import { useRouter } from 'next/navigation';
 import styles from '../favorites/page.module.scss';
 
-export default function Favorites(props) {
+type Favorite = {
+  attraction: string;
+  address?: string;
+  phone?: string;
+  website?: string;
+  id: string;
+};
+
+type Props = {
+  user: {
+    username: string;
+  };
+  favorites: Favorite[];
+};
+
+export default function Favorites(props: Props) {
   const router = useRouter();
   return (
     <div className={styles.favorites}>
@@ -26,14 +41,15 @@ export default function Favorites(props) {
                     {favorite.attraction}
                   </h2>
 
-                  {favorite?.address && (
-                    <p className={styles.address}>
-                      <LocationOnIcon />
-                      {favorite.address}
-                    </p>
-                  )}
+                  {favorite.address !== undefined &&
+                    favorite.address !== '' && (
+                      <p className={styles.address}>
+                        <LocationOnIcon />
+                        {favorite.address}
+                      </p>
+                    )}
 
-                  {favorite?.phone && (
+                  {favorite.phone !== undefined && favorite.phone !== '' && (
                     <p className={styles.phone}>
                       {' '}
                       <PhoneIcon />
@@ -41,13 +57,14 @@ export default function Favorites(props) {
                     </p>
                   )}
 
-                  {favorite?.website && (
-                    <a className={styles.website} href={favorite.website}>
-                      <LanguageOutlinedIcon />
+                  {favorite.website !== undefined &&
+                    favorite.website !== '' && (
+                      <a className={styles.website} href={favorite.website}>
+                        <LanguageOutlinedIcon />
 
-                      {favorite.website}
-                    </a>
-                  )}
+                        {favorite.website}
+                      </a>
+                    )}
                   <button
                     className={styles.delete}
                     onClick={async () => {
@@ -69,7 +86,7 @@ export default function Favorites(props) {
                       router.refresh();
                     }}
                   >
-                    <DeleteForeverRoundedIcon size="large" />
+                    <DeleteForeverRoundedIcon fontSize="large" />
                   </button>
                 </div>
               </Card>
