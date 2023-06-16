@@ -107,6 +107,9 @@ export default function ListingAttractions(props) {
       console.log(error);
     });
   }, [coords, favorites]);
+  console.log('coords', coords);
+  console.log('places', places);
+  console.log('icon', weatherIcon);
 
   return (
     <div>

@@ -16,23 +16,36 @@ const containerStyle = {
   borderRadius: '10px',
 };
 
-// const mapLibraries = ['places'];
+type Place = {
+  name: string;
+  latitude: string;
+  longitude: string;
+  photo: {
+    images: {
+      large: {
+        url: string;
+      };
+    };
+  };
+};
 
-// const isLargeScreen = window.innerWidth >= 600;
+type WeatherIcon = {
+  current: {
+    temp: number;
+    weather: {
+      icon: string;
+    }[];
+  };
+};
 
-// type ComponentProps = {
-//   coords: string[];
-//   places: string[];
-//   weatherIcon: string;
-// };
+type Props = {
+  coords: number[];
+  places: Place[];
+  weatherIcon: WeatherIcon;
+};
 
-export default function TravelMap({
-  coords,
-  places,
-  weatherIcon,
-  setChildClicked,
-}) {
-  const [selectedPlace, setSelectedPlace] = useState(null);
+export default function TravelMap({ coords, places, weatherIcon }: Props) {
+  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
   const coordinates = {
     lat: coords[1],
@@ -53,12 +66,11 @@ export default function TravelMap({
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={coordinates}
-        defaultCenter={coordinates}
+        // defaultCenter={coordinates}
         zoom={14}
         margin={[50, 50, 50, 50]}
-        options=""
+        // options=""
       >
-        {/* <div ref={placesRef}> */}
         {places?.map((place) => (
           <Marker
             key={`place-${place.name}`}
@@ -66,23 +78,19 @@ export default function TravelMap({
               lat: Number(place.latitude),
               lng: Number(place.longitude),
             }}
-            onChildClick={(child) => setChildClicked(child)}
-            onClick={() => {
-              setSelectedPlace(place);
-            }}
+            onClick={() => setSelectedPlace(place)}
           />
         ))}
         {/* </div> */}
         {selectedPlace && (
           <InfoWindow
-            className={styles.paper}
+            // className={styles.paper}
             position={{
               lat: Number(selectedPlace.latitude),
               lng: Number(selectedPlace.longitude),
             }}
             onCloseClick={() => {
               setSelectedPlace(null);
-              // console.log('placesrefclose', placesRef.current);
             }}
           >
             <div className={styles.popup}>
@@ -101,7 +109,7 @@ export default function TravelMap({
             </div>
           </InfoWindow>
         )}
-        {temperature ? (
+        {temperature && weatherIcon.current?.weather[0] && (
           <div>
             <img
               className={styles.weatherIcon}
@@ -110,7 +118,7 @@ export default function TravelMap({
             />
             <p className={styles.weatherTemp}>{temperature}*C</p>
           </div>
-        ) : null}
+        )}
       </GoogleMap>
     </div>
   ) : (

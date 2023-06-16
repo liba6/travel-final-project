@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 // Commenting out to avoid maxing out my api calls :()
-export default async function getPlacesData(coords) {
-  console.log('coords', coords);
+export default async function getPlacesData(coords: number[]) {
   try {
     const {
       data: { data },
