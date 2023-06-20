@@ -24,14 +24,75 @@ import getPlacesData from '../../../utils/places';
 import TravelMap from '../map/TravelMap';
 import styles from './page.module.scss';
 
-export default function ListingAttractions(props) {
-  const [places, setPlaces] = useState([]);
-  const [coords, setCoords] = useState({});
+type Props = {
+  user: User;
+  favorites: Favorites;
+};
+
+type Favorites = {
+  id: number;
+  attraction: string;
+  address: string;
+  website: string;
+  phone: string;
+  userId: number;
+}[];
+
+type User = {
+  id: number;
+  username: string;
+};
+
+type Place = {
+  name: string;
+  latitude: string;
+  longitude: string;
+  address: string;
+  website: string;
+  web_url: string;
+  phone: string;
+  isClicked: boolean;
+  photo: {
+    images: {
+      large: {
+        url: string;
+      };
+    };
+  };
+};
+
+type WeatherIcon = {
+  current: {
+    temp: number;
+    weather: {
+      icon: string;
+    }[];
+  };
+};
+
+type Suggestion = {
+  description: string;
+  active: boolean;
+};
+
+type RenderFunctionProps = {
+  getInputProps: (params?: object) => object;
+  suggestions: Suggestion[];
+  getSuggestionItemProps: (suggestion: Suggestion, params?: object) => object;
+  loading: boolean;
+};
+
+export default function ListingAttractions(props: Props) {
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [coords, setCoords] = useState<number[]>([]);
   const [address, setAddress] = useState('');
   const [selection, setSelection] = useState('');
   const [errormsg, setErrormsg] = useState('');
   const [favorites, setFavorites] = useState(props.favorites);
-  const [weatherIcon, setWeatherIcon] = useState('');
+  const [weatherIcon, setWeatherIcon] = useState<WeatherIcon>({
+    current: { temp: 0, weather: [{ icon: '' }] },
+  });
+
   console.log('avoidprob', setFavorites);
 
   // const myKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -54,7 +115,7 @@ export default function ListingAttractions(props) {
       .catch(() => alert('error'));
   }, [url]);
 
-  const handleSelect = (value) => {
+  const handleSelect = (value: string) => {
     setSelection(value);
     setAddress(value);
   };
@@ -91,7 +152,7 @@ export default function ListingAttractions(props) {
       );
 
       // map over data, to add clicked value true to favorites, false to others
-      const placesWithClicks = placesData.map((place) => {
+      const placesWithClicks = placesData.map((place: Place) => {
         if (attractionsFromDatabaseArray.includes(place.name)) {
           return { ...place, isClicked: true };
         }
@@ -136,7 +197,7 @@ export default function ListingAttractions(props) {
                 suggestions,
                 getSuggestionItemProps,
                 loading,
-              }) => (
+              }: RenderFunctionProps) => (
                 <div className={styles.searchArea}>
                   <div className={styles.searchIcon}>
                     <SearchIcon />
@@ -150,7 +211,7 @@ export default function ListingAttractions(props) {
                   />
                   <div className="autocomplete-dropdown-container">
                     {loading && <div>Loading...</div>}
-                    {suggestions.map((suggestion) => {
+                    {suggestions.map((suggestion: Suggestion) => {
                       const className = suggestion.active
                         ? 'suggestion-item--active'
                         : 'suggestion-item';
@@ -162,7 +223,7 @@ export default function ListingAttractions(props) {
                         : { backgroundColor: '#9cb1d2', cursor: 'pointer' };
                       return (
                         <div
-                          key={`suggestions-${suggestions.description}`}
+                          key={`suggestions-${suggestion.description}`}
                           {...getSuggestionItemProps(suggestion, {
                             className,
                             style,
@@ -182,7 +243,7 @@ export default function ListingAttractions(props) {
       <div>
         <Grid container spacing={1} className={styles.list}>
           <div ref={myRef} className={styles.cardContainer}>
-            {places.map((place) =>
+            {places.map((place: Place) =>
               place.address || place.phone || place.website ? (
                 <Grid key={`place-${place.name}`} item xs={12} md={7}>
                   <Card elevation={6} className={styles.card}>
@@ -205,7 +266,7 @@ export default function ListingAttractions(props) {
                             className={styles.favorite}
                             // onclick changes the isClicked value for each item on each click
                             onClick={async () => {
-                              const newPlaces = places.map((item) => {
+                              const newPlaces = places.map((item: Place) => {
                                 if (item.name !== place.name) {
                                   return item;
                                 } else {
@@ -262,11 +323,6 @@ export default function ListingAttractions(props) {
                             )}
                           </button>
                         )}
-                      </Box>
-                      <Box display="flex" justifyContent="space-between">
-                        <Typography variant="subtitle1">
-                          {place.price_level}
-                        </Typography>
                       </Box>
 
                       {place.address && (
