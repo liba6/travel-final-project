@@ -8,6 +8,7 @@ import {
   useJsApiLoader,
 } from '@react-google-maps/api';
 import { useState } from 'react';
+import { WeatherIcon } from '../listingattractions/ListingAttractionsApp';
 import styles from './page.module.scss';
 
 const containerStyle = {
@@ -29,14 +30,14 @@ type Place = {
   };
 };
 
-type WeatherIcon = {
-  current: {
-    temp: number;
-    weather: {
-      icon: string;
-    }[];
-  };
-};
+// type WeatherIcon = {
+//   current: {
+//     temp: number;
+//     weather: {
+//       icon: string;
+//     }[];
+//   };
+// };
 
 type Props = {
   coords: number[];
@@ -69,7 +70,6 @@ export default function TravelMap({ coords, places, weatherIcon }: Props) {
         // defaultCenter={coordinates}
         zoom={14}
         margin={[50, 50, 50, 50]}
-        // options=""
       >
         {places?.map((place) => (
           <Marker
@@ -109,7 +109,7 @@ export default function TravelMap({ coords, places, weatherIcon }: Props) {
             </div>
           </InfoWindow>
         )}
-        {temperature && weatherIcon.current?.weather[0] && (
+        {!!temperature && weatherIcon.current?.weather[0] && (
           <div>
             <img
               className={styles.weatherIcon}

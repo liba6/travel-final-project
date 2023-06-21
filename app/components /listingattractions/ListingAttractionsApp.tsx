@@ -61,7 +61,7 @@ type Place = {
   };
 };
 
-type WeatherIcon = {
+export type WeatherIcon = {
   current: {
     temp: number;
     weather: {
@@ -70,17 +70,17 @@ type WeatherIcon = {
   };
 };
 
-type Suggestion = {
-  description: string;
-  active: boolean;
-};
+// type Suggestion = {
+//   description: string;
+//   active: boolean;
+// };
 
-type RenderFunctionProps = {
-  getInputProps: (params?: object) => object;
-  suggestions: Suggestion[];
-  getSuggestionItemProps: (suggestion: Suggestion, params?: object) => object;
-  loading: boolean;
-};
+// type RenderFunctionProps = {
+//   getInputProps: (params?: object) => object;
+//   suggestions: Suggestion[];
+//   getSuggestionItemProps: (suggestion: Suggestion, params?: object) => object;
+//   loading: boolean;
+// };
 
 export default function ListingAttractions(props: Props) {
   const [places, setPlaces] = useState<Place[]>([]);
@@ -160,8 +160,6 @@ export default function ListingAttractions(props: Props) {
       });
 
       setPlaces(placesWithClicks);
-      // console.log('placesWithClicks', placesWithClicks);
-      // console.log('placesData', placesData);
     }
 
     a().catch((error) => {
@@ -197,7 +195,7 @@ export default function ListingAttractions(props: Props) {
                 suggestions,
                 getSuggestionItemProps,
                 loading,
-              }: RenderFunctionProps) => (
+              }) => (
                 <div className={styles.searchArea}>
                   <div className={styles.searchIcon}>
                     <SearchIcon />
@@ -211,23 +209,22 @@ export default function ListingAttractions(props: Props) {
                   />
                   <div className="autocomplete-dropdown-container">
                     {loading && <div>Loading...</div>}
-                    {suggestions.map((suggestion: Suggestion) => {
+                    {suggestions.map((suggestion) => {
+                      console.log('suggestion', suggestions);
                       const className = suggestion.active
                         ? 'suggestion-item--active'
                         : 'suggestion-item';
+                      // inline style for demonstration purpose
                       const style = suggestion.active
-                        ? {
-                            backgroundColor: '#b4c6e7',
-                            cursor: 'pointer',
-                          }
-                        : { backgroundColor: '#9cb1d2', cursor: 'pointer' };
+                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
                       return (
                         <div
-                          key={`suggestions-${suggestion.description}`}
                           {...getSuggestionItemProps(suggestion, {
                             className,
                             style,
                           })}
+                          key={`suggestions-${suggestion.description}`}
                         >
                           <span>{suggestion.description}</span>
                         </div>
@@ -325,7 +322,7 @@ export default function ListingAttractions(props: Props) {
                         )}
                       </Box>
 
-                      {place.address && (
+                      {!!place.address && (
                         <Typography
                           gutterBottom
                           variant="subtitle2"
@@ -336,7 +333,7 @@ export default function ListingAttractions(props: Props) {
                           {place.address}
                         </Typography>
                       )}
-                      {place.phone && (
+                      {!!place.phone && (
                         <Typography
                           gutterBottom
                           variant="subtitle2"
