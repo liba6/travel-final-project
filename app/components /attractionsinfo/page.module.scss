@@ -1,0 +1,39 @@
+.cardContainer {
+  overflow-y: scroll;
+  max-height: 100vh;
+  max-width: 1000px;
+}
+
+.cardmedia {
+  height: 350px;
+}
+
+.card {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 600px;
+  margin-left: 15px;
+}
+
+.favorite {
+  border: none;
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.spacing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -12,14 +12,14 @@ type Favorite = {
   address?: string;
   phone?: string;
   website?: string;
-  id: string;
+  id: number;
 };
 
 type Props = {
   user: {
     username: string;
   };
-  favorites: Favorite[];
+  favoritesinfo: Favorite[];
 };
 
 export default function Favorites(props: Props) {
@@ -30,16 +30,11 @@ export default function Favorites(props: Props) {
         <h1 className={styles.h1}>{props.user.username}'s Favorites</h1>
 
         <div className={styles.divFlex}>
-          {props.favorites.map((favorite) => (
+          {props.favoritesinfo.map((favorite) => (
             <Grid key={`favorite-${favorite.attraction}`} item xs={12} md={6}>
-              {/* {favorite.address || favorite.phone || favorite.website ? ( */}
               <Card elevation={6} className={styles.card}>
                 <div className={styles.cardContent}>
-                  <h2 className={styles.attraction}>
-                    {' '}
-                    {/* <AttractionsOutlinedIcon /> */}
-                    {favorite.attraction}
-                  </h2>
+                  <h2 className={styles.attraction}> {favorite.attraction}</h2>
 
                   {favorite.address !== undefined &&
                     favorite.address !== '' && (
@@ -82,7 +77,6 @@ export default function Favorites(props: Props) {
                         console.error(data.error);
                         // return error;
                       }
-                      // console.log('data', data);
                       router.refresh();
                     }}
                   >
@@ -90,7 +84,6 @@ export default function Favorites(props: Props) {
                   </button>
                 </div>
               </Card>
-              {/* ) : null} */}
             </Grid>
           ))}
         </div>

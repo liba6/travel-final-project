@@ -8,7 +8,7 @@ import {
   useJsApiLoader,
 } from '@react-google-maps/api';
 import { useState } from 'react';
-import { WeatherIcon } from '../listingattractions/ListingAttractionsApp';
+import { WeatherData } from '../../types/listingattractions';
 import styles from './page.module.scss';
 
 const containerStyle = {
@@ -30,22 +30,13 @@ type Place = {
   };
 };
 
-// type WeatherIcon = {
-//   current: {
-//     temp: number;
-//     weather: {
-//       icon: string;
-//     }[];
-//   };
-// };
-
 type Props = {
   coords: number[];
   places: Place[];
-  weatherIcon: WeatherIcon;
+  weatherData: WeatherData;
 };
 
-export default function TravelMap({ coords, places, weatherIcon }: Props) {
+export default function TravelMap({ coords, places, weatherData }: Props) {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
   const coordinates = {
@@ -60,7 +51,7 @@ export default function TravelMap({ coords, places, weatherIcon }: Props) {
   });
 
   const temperature =
-    weatherIcon && Math.round(weatherIcon.current?.temp - 273.15);
+    weatherData && Math.round(weatherData.current?.temp - 273.15);
 
   return isLoaded ? (
     <div className={styles.mapContainer}>
@@ -109,11 +100,11 @@ export default function TravelMap({ coords, places, weatherIcon }: Props) {
             </div>
           </InfoWindow>
         )}
-        {!!temperature && weatherIcon.current?.weather[0] && (
+        {!!temperature && weatherData.current?.weather[0] && (
           <div>
             <img
               className={styles.weatherIcon}
-              src={`http://openweathermap.org/img/w/${weatherIcon.current?.weather[0].icon}.png`}
+              src={`http://openweathermap.org/img/w/${weatherData.current?.weather[0].icon}.png`}
               alt="weather icon"
             />
             <p className={styles.weatherTemp}>{temperature}*C</p>
