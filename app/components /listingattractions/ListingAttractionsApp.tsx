@@ -3,29 +3,15 @@
 import { CssBaseline, Grid } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import getPlacesData from '../../../utils/places';
-import { Place, WeatherData } from '../../types/listingattractions';
+import { Favorites, Place, User, WeatherData } from '../../types';
 import AttractionsInfo from '../attractionsinfo/AttractionsInfo';
 import TravelMap from '../map/TravelMap';
 import SearchBar from '../searchbar/SearchBar';
 import styles from './page.module.scss';
 
-type Props = {
+export type Props = {
   user: User;
   favorites: Favorites;
-};
-
-type Favorites = {
-  id: number;
-  attraction: string;
-  address: string;
-  website: string;
-  phone: string;
-  userId: number;
-}[];
-
-type User = {
-  id: number;
-  username: string;
 };
 
 export default function ListingAttractions(props: Props) {

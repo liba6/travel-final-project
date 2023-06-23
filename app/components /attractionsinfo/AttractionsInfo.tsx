@@ -15,6 +15,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Favorites, Place, User } from '../../types';
 import styles from './page.module.scss';
 
 type Props = {
@@ -26,37 +27,6 @@ type Props = {
 type Properties = {
   user: User;
   favorites: Favorites;
-};
-type Place = {
-  name: string;
-  latitude: string;
-  longitude: string;
-  address: string;
-  website: string;
-  web_url: string;
-  phone: string;
-  isClicked: boolean;
-  photo: {
-    images: {
-      large: {
-        url: string;
-      };
-    };
-  };
-};
-
-type Favorites = {
-  id: number;
-  attraction: string;
-  address: string;
-  website: string;
-  phone: string;
-  userId: number;
-}[];
-
-type User = {
-  id: number;
-  username: string;
 };
 
 export default function AttractionsInfo({

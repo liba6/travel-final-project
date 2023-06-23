@@ -8,26 +8,13 @@ import {
   useJsApiLoader,
 } from '@react-google-maps/api';
 import { useState } from 'react';
-import { WeatherData } from '../../types/listingattractions';
+import { Place, WeatherData } from '../../types';
 import styles from './page.module.scss';
 
 const containerStyle = {
   width: '100%',
   height: '100%',
   borderRadius: '10px',
-};
-
-type Place = {
-  name: string;
-  latitude: string;
-  longitude: string;
-  photo: {
-    images: {
-      large: {
-        url: string;
-      };
-    };
-  };
 };
 
 type Props = {

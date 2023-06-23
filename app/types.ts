@@ -24,3 +24,17 @@ export type WeatherData = {
     }[];
   };
 };
+
+export type Favorites = {
+  id: number;
+  attraction: string;
+  address: string;
+  website: string;
+  phone: string;
+  userId: number;
+}[];
+
+export type User = {
+  id: number;
+  username: string;
+};

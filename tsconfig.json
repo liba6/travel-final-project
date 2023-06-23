@@ -15,6 +15,11 @@
   ],
   "compilerOptions": {
     "jsx": "preserve",
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   }
 }
