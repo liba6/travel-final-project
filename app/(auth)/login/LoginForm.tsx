@@ -21,9 +21,7 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
           method: 'POST',
           body: JSON.stringify({ username, password }),
         });
-        console.log('response', response);
         const data: LoginResponseBodyPost = await response.json();
-        console.log('data', data);
         if ('errors' in data) {
           setErrors(data.errors);
           return;
