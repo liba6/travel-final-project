@@ -2,7 +2,7 @@
 
 import { CssBaseline, Grid } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import getPlacesData from '../../../utils/places';
+import getPlacesData from '../../../util/places';
 import { Favorites, Place, User, WeatherData } from '../../types';
 import AttractionsInfo from '../attractionsinfo/AttractionsInfo';
 import TravelMap from '../map/TravelMap';
