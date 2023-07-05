@@ -2,8 +2,8 @@
 
 import { CssBaseline, Grid } from '@material-ui/core';
 import { useEffect, useState } from 'react';
+import { Favorites, Place, User, WeatherData } from '../../../database/types';
 import getPlacesData from '../../../util/places';
-import { Favorites, Place, User, WeatherData } from '../../types';
 import AttractionsInfo from '../attractionsinfo/AttractionsInfo';
 import TravelMap from '../map/TravelMap';
 import SearchBar from '../searchbar/SearchBar';
@@ -60,7 +60,7 @@ export default function ListingAttractions(props: Props) {
   // api call to convert given city to its coordinates
   useEffect(() => {
     fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${selection}.json?access_token=$pk.eyJ1IjoibGlzYTYiLCJhIjoiY2xmOHU2bjRhMDI0OTNycWt3aGgzaDJkYiJ9.NKd0Y-1JRbn4ijW2r1ttZQ`,
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${selection}.json?access_token=pk.eyJ1IjoibGlzYTYiLCJhIjoiY2xmOHU2bjRhMDI0OTNycWt3aGgzaDJkYiJ9.NKd0Y-1JRbn4ijW2r1ttZQ`,
     )
       .then((res) => res.json())
       .then((res) => res.features[1].geometry.coordinates)

@@ -1,4 +1,4 @@
-import { Favorites, Place } from '../app/types';
+import { Favorites, Place } from '../database/types';
 
 export default function Filter(places: Place[], favorites: Favorites): Place[] {
   const attractionsFromFavorites = favorites.map(

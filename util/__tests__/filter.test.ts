@@ -1,4 +1,4 @@
-import { Favorites, Place } from '../../app/types';
+import { Favorites, Place } from '../../database/types';
 import Filter from '../filter';
 
 const favorites: Favorites = [

@@ -26,9 +26,6 @@ export async function POST(
   const result = userSchema.safeParse(body);
 
   if (!result.success) {
-    // Inside of result.error.issues you are going to have more granular information about what is failing allowing you to create more specific error massages
-    // console.log(result.error.issues);
-
     return NextResponse.json(
       {
         errors: result.error.issues,
@@ -45,8 +42,7 @@ export async function POST(
     );
   }
 
-  // 2. check if the user already exist
-  // 2.a compare the username with the database
+  // 2. check if the user already exist / compare the username with the database
 
   const user = await getUserByUsername(result.data.username);
 

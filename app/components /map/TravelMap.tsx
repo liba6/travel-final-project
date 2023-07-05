@@ -8,7 +8,7 @@ import {
   useJsApiLoader,
 } from '@react-google-maps/api';
 import { useState } from 'react';
-import { Place, WeatherData } from '../../types';
+import { Place, WeatherData } from '../../../database/types';
 import styles from './page.module.scss';
 
 const containerStyle = {

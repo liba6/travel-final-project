@@ -35,6 +35,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
           router.push(props.returnTo);
           return;
         }
+
         router.replace(`/attractions
         `);
         router.refresh();

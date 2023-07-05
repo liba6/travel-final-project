@@ -16,8 +16,6 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const dynamic = 'force-dynamic';
-
 export default async function RootLayout(props: Props) {
   // 1. get the session token from the cookie
   const cookieStore = cookies();
@@ -52,20 +50,20 @@ export default async function RootLayout(props: Props) {
             />
           </Link>
           <div className={styles.nav}>
-            <a className={styles.li} href="/attractions">
+            <Link className={styles.li} href="/attractions">
               <span>Attractions</span>
-            </a>
+            </Link>
             {!user && (
               <Link href="/login">
                 <span className={styles.li}>Login</span>
               </Link>
             )}
             {user && (
-              <a href={`/favorites/${user.username}`}>
+              <Link href={`/favorites/${user.username}`}>
                 <span className={styles.favorites}>
                   {user.username + ' '}Favorites
                 </span>
-              </a>
+              </Link>
             )}
             {user && (
               <Link href="/logout" prefetch={false}>

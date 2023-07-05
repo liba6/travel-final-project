@@ -15,7 +15,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
-import { Favorites, Place, User } from '../../types';
+import { Favorites, Place, User } from '../../../database/types';
 import styles from './page.module.scss';
 
 type Props = {

@@ -16,7 +16,7 @@ export type LoginResponseBodyPost =
   | { user: { username: string } };
 
 export const POST = async (request: NextRequest) => {
-  // 1. check if no empty fields
+  // 1. check if no empty fields/validate the data
   const body = await request.json();
   const result = userSchema.safeParse(body);
 
