@@ -35,7 +35,7 @@ export default function ListingAttractions(props: Props) {
     setAddress(value);
   };
 
-  // Fetch weather data
+  // Fetch weather data - weather api
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())

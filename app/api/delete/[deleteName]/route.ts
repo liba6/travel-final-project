@@ -24,7 +24,6 @@ export async function DELETE(
   }
 
   const singlePlace = await deletePlaceByName(placeName);
-  console.log('singleFavorite', singlePlace);
 
   if (!singlePlace) {
     return NextResponse.json(

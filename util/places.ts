@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Commenting out to avoid maxing out my api calls :()
+// api call to get attractions by coordinates
 export default async function getPlacesData(coords: number[]) {
   try {
     const {

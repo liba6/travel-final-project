@@ -74,6 +74,7 @@ export default function AttractionsInfo({
                         });
 
                         setPlaces(newPlaces);
+
                         // api to send the place to databae
 
                         if (!place.isClicked) {
@@ -101,7 +102,6 @@ export default function AttractionsInfo({
                             method: 'DELETE',
                           });
                           const data = await res.json();
-                          console.log('jsondata', data);
                           if (data.error) {
                             setErrormsg(data.error);
                             return errormsg;

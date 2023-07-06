@@ -45,7 +45,7 @@ export const getFavoritesByUserId = cache(async (userId: number) => {
 
   return favorites;
 });
-// adding a delete favorite function
+
 export const deleteFavoriteById = cache(async (id: number) => {
   const [favorite] = await sql<Favorite[]>`
     DELETE FROM
