@@ -1,49 +1,23 @@
 'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { RegisterResponseBodyPost } from '../../api/(auth)/register/route';
+import useUserInfo from '../useUserInfo';
 import styles from './page.module.scss';
 
-export default function RegisterForm(props: { returnTo?: string | string[] }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
-  const router = useRouter();
+export default function RegisterForm() {
+  const {
+    username,
+    password,
+    errors,
+    handleUsernameChange,
+    handlePasswordChange,
+    handleFormSubmit,
+  } = useUserInfo('/api/register');
 
   return (
-    <form
-      onSubmit={async (event) => {
-        event.preventDefault();
-
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          body: JSON.stringify({ username, password }),
-        });
-        const data: RegisterResponseBodyPost = await response.json();
-
-        if ('errors' in data) {
-          setErrors(data.errors);
-          return;
-        }
-
-        if (
-          props.returnTo &&
-          !Array.isArray(props.returnTo) &&
-          /^\/[a-zA-Z0-9-?=/]*$/.test(props.returnTo)
-        ) {
-          router.push(props.returnTo);
-          return;
-        }
-
-        router.replace(`/attractions
-        `);
-        router.refresh();
-      }}
-    >
+    <form onSubmit={handleFormSubmit}>
       {errors.map((error) => (
         <div key={`error - ${error.message}`} className={styles.error}>
-          Error:{error.message}
+          Error: {error.message}
         </div>
       ))}
 
@@ -55,7 +29,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
             Username:
             <input
               value={username}
-              onChange={(event) => setUsername(event.currentTarget.value)}
+              onChange={handleUsernameChange}
               className={styles.input}
             />
           </label>
@@ -64,7 +38,7 @@ export default function RegisterForm(props: { returnTo?: string | string[] }) {
             <input
               value={password}
               type="password"
-              onChange={(event) => setPassword(event.currentTarget.value)}
+              onChange={handlePasswordChange}
               className={styles.input}
             />
           </label>

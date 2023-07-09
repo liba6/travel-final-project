@@ -1,44 +1,20 @@
 'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { getSafeReturnToPath } from '../../../util/validation';
-import { LoginResponseBodyPost } from '../../api/(auth)/login/route';
+import useUserInfo from '../useUserInfo';
 import styles from './page.module.scss';
 
-export default function LoginForm(props: { returnTo?: string | string[] }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
-  const router = useRouter();
+export default function LoginForm() {
+  const {
+    username,
+    password,
+    errors,
+    handleUsernameChange,
+    handlePasswordChange,
+    handleFormSubmit,
+  } = useUserInfo('api/login');
 
   return (
-    <form
-      onSubmit={async (event) => {
-        event.preventDefault();
-
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          body: JSON.stringify({ username, password }),
-        });
-        const data: LoginResponseBodyPost = await response.json();
-        if ('errors' in data) {
-          setErrors(data.errors);
-          return;
-        }
-
-        const returnTo = getSafeReturnToPath(props.returnTo);
-
-        if (returnTo) {
-          router.push(returnTo);
-          return;
-        }
-
-        router.replace(`/attractions
-        `);
-        router.refresh();
-      }}
-    >
+    <form onSubmit={handleFormSubmit}>
       {errors.map((error) => (
         <div key={`error-${error.message}`} className={styles.error}>
           Error: {error.message}
@@ -53,7 +29,7 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
             <input
               value={username}
               className={styles.input}
-              onChange={(event) => setUsername(event.currentTarget.value)}
+              onChange={handleUsernameChange}
             />
           </label>
           <label>
@@ -61,7 +37,7 @@ export default function LoginForm(props: { returnTo?: string | string[] }) {
             <input
               value={password}
               type="password"
-              onChange={(event) => setPassword(event.currentTarget.value)}
+              onChange={handlePasswordChange}
               className={styles.input}
             />
           </label>

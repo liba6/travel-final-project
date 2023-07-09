@@ -11,10 +11,6 @@ const userSchema = z.object({
   password: z.string(),
 });
 
-export type LoginResponseBodyPost =
-  | { errors: { message: string }[] }
-  | { user: { username: string } };
-
 export const POST = async (request: NextRequest) => {
   // 1. check if no empty fields/validate the data
   const body = await request.json();
